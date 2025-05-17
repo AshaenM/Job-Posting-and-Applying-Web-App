@@ -1,5 +1,6 @@
 <template>
     <div class="container my-5">
+        <h2 id="home-heading" class="text-center mb-5">Why choose TalentHaven</h2>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-start mb-4 info-block">
                 <img src="../assets/apply.jpg" alt="Person applying for a job" class="info-img" />
