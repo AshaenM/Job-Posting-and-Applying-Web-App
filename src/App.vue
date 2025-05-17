@@ -18,10 +18,10 @@ import Home from './components/Home.vue'
               <router-link class="nav-link text-primary" to="/">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#about' }">About</router-link>
+              <router-link class="nav-link text-primary" :to="{ path: '/about'}">About</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/News'}">News</router-link>
+              <router-link class="nav-link text-primary" :to="{ path: '/news'}">News</router-link>
             </li>
           </ul>
         </div>
