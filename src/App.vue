@@ -1,30 +1,86 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+      <div class="container-fluid">
+        <h2>TalentHaven</h2>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#home' }">Home</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#about' }">About</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#news' }">News</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="row">
+      <div class="text-center">
+        <h1>Welcome to TalentHaven</h1>
+        <p>Connecting top talent with great opportunities — all in one place.</p>
+      </div>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
+<script>
+export default {
+  name: 'App',
+};
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+h2, h3 {
+  font-weight: bold;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.nav-bar-container {
+  background-color: rgb(250, 246, 246);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  padding: 0.9rem 2rem;
+  transition: color 0.3s ease;
+}
+
+.nav-item .nav-link:hover {
+  color: blue !important;
+}
+
+.navbar-nav .nav-item {
+  margin-left: 2rem;
+}
+
+.container-fluid .row:nth-child(2) {
+  background-image: url('../src/assets/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
