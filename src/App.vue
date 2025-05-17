@@ -1,3 +1,6 @@
+<script setup>
+import Home from './components/Home.vue'
+</script>
 
 <template>
   <div class="container-fluid">
@@ -12,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#home' }">Home</router-link>
+              <router-link class="nav-link text-primary" to="/">Home</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link text-primary" :to="{ path: '/overview', hash: '#about' }">About</router-link>
@@ -30,6 +33,9 @@
         <p>Connecting top talent with great opportunities — all in one place.</p>
       </div>
     </div>
+
+    <router-view />
+    
   </div>
 </template>
 
@@ -82,5 +88,15 @@ h2, h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .nav-link{
+    padding: 0.9rem 0rem;
+  }
+
+  .navbar-nav .nav-item{
+    margin-left: 0;
+  }
 }
 </style>
