@@ -3,7 +3,7 @@
         <h2 class="mb-4 text-center">Available Jobs</h2>
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search by title, company, or type"
+            <input type="text" class="form-control" placeholder="Search by title, company, location or type"
                 v-model="searchQuery" />
         </div>
 
@@ -20,7 +20,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="job in paginatedJobs" :key="job.id">
+                    <tr v-for="job in paginatedJobs" :key="job.id" @click="goToJobDetail(job.id)"
+                        style="cursor: pointer;">
                         <td headers="title">{{ job.title }}</td>
                         <td headers="company">{{ job.company }}</td>
                         <td headers="location">{{ job.location }}</td>
@@ -89,6 +90,11 @@ export default {
     watch: {
         searchQuery() {
             this.currentPage = 1;
+        }
+    },
+    methods: {
+        goToJobDetail(id) {
+            this.$router.push({ name: 'JobDetails', params: { id } });
         }
     }
 };
