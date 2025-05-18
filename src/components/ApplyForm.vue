@@ -12,7 +12,7 @@
         <input type="email" v-model="email" class="form-control" id="email" required />
       </div>
       <div class="mb-3">
-        <label for="resume" class="form-label">Resume (URL or brief text)</label>
+        <label for="resume" class="form-label">Resume (URL)</label>
         <textarea v-model="resume" class="form-control" id="resume" rows="4" required></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit Application</button>
