@@ -5,6 +5,7 @@ import Jobs from '../components/Jobs.vue'
 import JobDetails from '../components/JobDetails.vue';
 import ApplyForm from '../components/ApplyForm.vue';
 import ApplicantSignUp from '../components/ApplicantSignUp.vue';
+import ApplicantLogin from '../components/ApplicantLogin.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -12,7 +13,8 @@ const routes = [
     { path: '/jobs', component: Jobs },
     { path: '/job/:id', name: 'JobDetails', component: JobDetails },
     { path: '/apply/:id', name: 'ApplyForm', component: ApplyForm },
-    {path: '/applicant-signup', name: 'ApplicantSignUp', component: ApplicantSignUp}
+    { path: '/applicant-signup', name: 'ApplicantSignUp', component: ApplicantSignUp },
+    { path: '/applicant-login', name: 'ApplicantLogin', component: ApplicantLogin }
 ]
 const router = createRouter({
     history: createWebHashHistory(),

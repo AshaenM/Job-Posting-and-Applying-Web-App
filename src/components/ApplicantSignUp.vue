@@ -56,6 +56,11 @@
 
     <div v-if="error" class="alert alert-danger mt-3">{{ error }}</div>
     <div v-if="success" class="alert alert-success mt-3">{{ success }}</div>
+
+    <div class="mt-4">
+      Already have an account?
+      <router-link to="/applicant-login" class="btn btn-outline-primary btn-sm ms-2">Log In</router-link>
+    </div>
   </div>
 </template>
 

@@ -1,7 +1,3 @@
-<script setup>
-import Home from './components/Home.vue'
-</script>
-
 <template>
   <div class="container-fluid">
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
