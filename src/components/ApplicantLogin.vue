@@ -65,18 +65,45 @@ export default {
                 this.passwordError = null;
             }
         },
-        handleLogin() {
+        async handleLogin() {
             this.validateEmail();
             this.validatePassword();
 
             if (!this.formIsValid) {
                 this.error = 'Please fix the errors above before logging in.';
+                this.success = null;
                 return;
             }
 
-            console.log('Logging in with', { email: this.email, password: this.password });
-            this.success = 'Login successful!';
-            this.error = null;
+            try {
+                const response = await fetch('/applicants.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load applicants data.');
+                }
+
+                const applicants = await response.json();
+
+                // Trim inputs to avoid leading/trailing space issues
+                const trimmedEmail = this.email.trim();
+                const trimmedPassword = this.password.trim();
+
+                const applicant = applicants.find(app =>
+                    app.email === trimmedEmail && app.password === trimmedPassword
+                );
+
+                if (applicant) {
+                    this.success = 'Login successful!';
+                    this.error = null;
+
+                } else {
+                    this.error = 'Invalid email or password.';
+                    this.success = null;
+                }
+            } catch (err) {
+                this.error = 'An error occurred while logging in.';
+                this.success = null;
+                console.error(err);
+            }
 
             this.email = '';
             this.password = '';
