@@ -6,6 +6,7 @@ import JobDetails from '../components/JobDetails.vue';
 import ApplyForm from '../components/ApplyForm.vue';
 import ApplicantSignUp from '../components/ApplicantSignUp.vue';
 import ApplicantLogin from '../components/ApplicantLogin.vue';
+import RecruiterLogin from '../components/RecruiterLogin.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -14,7 +15,8 @@ const routes = [
     { path: '/job/:id', name: 'JobDetails', component: JobDetails },
     { path: '/apply/:id', name: 'ApplyForm', component: ApplyForm },
     { path: '/applicant-signup', name: 'ApplicantSignUp', component: ApplicantSignUp },
-    { path: '/applicant-login', name: 'ApplicantLogin', component: ApplicantLogin }
+    { path: '/applicant-login', name: 'ApplicantLogin', component: ApplicantLogin },
+    { path: '/recruiter-login', name: 'RecruiterLogin', component: RecruiterLogin }
 ]
 const router = createRouter({
     history: createWebHashHistory(),
