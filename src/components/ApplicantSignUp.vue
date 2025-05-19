@@ -51,6 +51,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary" :disabled="!formIsValid">Sign Up</button>
+      <router-link :to="`/about`" class="btn btn-secondary ms-2">Back</router-link>
     </form>
 
     <div v-if="error" class="alert alert-danger mt-3">{{ error }}</div>
