@@ -13,7 +13,7 @@
             </div>
             <div class="mb-3">
                 <label for="resume" class="form-label">Resume (URL)</label>
-                <textarea v-model="resume" class="form-control" id="resume" rows="4" required></textarea>
+                <textarea v-model="resume" class="form-control" id="resume" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit Application</button>
             <router-link :to="`/job/${job.id}`" class="btn btn-secondary ms-2">Back</router-link>
@@ -26,51 +26,64 @@
 </template>
 
 <script>
-import jobsData from '../jobs.json';
-
 export default {
-    data() {
-        return {
-            name: '',
-            email: '',
-            resume: ''
-        };
-    },
-    computed: {
-        job() {
-            const jobId = this.$route.params.id;
-            return jobsData.find(job => job.id === jobId);
-        }
-    },
-    methods: {
-        submitApplication() {
-            const application = {
-                jobId: this.job.id,
-                name: this.name,
-                email: this.email,
-                resume: this.resume
-            };
-
-            fetch('http://localhost:3000/apply', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(application)
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network error');
-                    return response.json();
-                })
-                .then(data => {
-                    alert('Application submitted successfully!');
-                    this.$router.push('/');
-                })
-                .catch(error => {
-                    console.error('Submission failed:', error);
-                    alert('Failed to submit application.');
-                });
-        }
+  data() {
+    return {
+      jobs: [],
+      name: '',
+      email: '',
+      resume: '',
+      loadingJobs: true,
+      errorLoadingJobs: null,
+    };
+  },
+  computed: {
+    job() {
+      const jobId = this.$route.params.id;
+      // Make sure types match, e.g. convert jobId to number if needed
+      return this.jobs.find(job => job.id.toString() === jobId);
     }
+  },
+  async created() {
+    try {
+      const response = await fetch('/jobs.json');
+      if (!response.ok) throw new Error('Failed to load jobs data');
+      this.jobs = await response.json();
+    } catch (err) {
+      this.errorLoadingJobs = err.message;
+    } finally {
+      this.loadingJobs = false;
+    }
+  },
+  methods: {
+    submitApplication() {
+      const application = {
+        jobId: this.job.id,
+        name: this.name,
+        email: this.email,
+        resume: this.resume,
+      };
+
+      fetch('https://mercury.swin.edu.au/cos30043/s104313773/A3/apply.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(application),
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Network error');
+          return response.json();
+        })
+        .then(data => {
+          alert('Application submitted successfully!');
+          this.$router.push('/');
+        })
+        .catch(error => {
+          console.error('Submission failed:', error);
+          alert('Failed to submit application.');
+        });
+    }
+  }
 };
 </script>

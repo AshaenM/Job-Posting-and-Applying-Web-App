@@ -56,47 +56,58 @@
 </template>
 
 <script>
-import jobsData from '../jobs.json';
-
 export default {
-    data() {
-        return {
-            jobs: jobsData,
-            currentPage: 1,
-            jobsPerPage: 5,
-            searchQuery: '',
-        };
-    },
-    computed: {
-        filteredJobs() {
-            if (!this.searchQuery) return this.jobs;
-
-            const query = this.searchQuery.toLowerCase();
-            return this.jobs.filter(job =>
-                job.title.toLowerCase().includes(query) ||
-                job.company.toLowerCase().includes(query) ||
-                job.employmentType.toLowerCase().includes(query) ||
-                job.location.toLowerCase().includes(query)
-            );
-        },
-        totalPages() {
-            return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
-        },
-        paginatedJobs() {
-            const start = (this.currentPage - 1) * this.jobsPerPage;
-            return this.filteredJobs.slice(start, start + this.jobsPerPage);
-        },
-    },
-    watch: {
-        searchQuery() {
-            this.currentPage = 1;
-        }
-    },
-    methods: {
-        goToJobDetail(id) {
-            this.$router.push({ name: 'JobDetails', params: { id } });
-        }
+  data() {
+    return {
+      jobs: [],
+      currentPage: 1,
+      jobsPerPage: 5,
+      searchQuery: '',
+      loading: true,
+      error: null,
+    };
+  },
+  async created() {
+    try {
+      const response = await fetch('/jobs.json');
+      if (!response.ok) throw new Error('Failed to load jobs data');
+      this.jobs = await response.json();
+    } catch (err) {
+      this.error = err.message;
+    } finally {
+      this.loading = false;
     }
+  },
+  computed: {
+    filteredJobs() {
+      if (!this.searchQuery) return this.jobs;
+
+      const query = this.searchQuery.toLowerCase();
+      return this.jobs.filter(job =>
+        job.title.toLowerCase().includes(query) ||
+        job.company.toLowerCase().includes(query) ||
+        job.employmentType.toLowerCase().includes(query) ||
+        job.location.toLowerCase().includes(query)
+      );
+    },
+    totalPages() {
+      return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
+    },
+    paginatedJobs() {
+      const start = (this.currentPage - 1) * this.jobsPerPage;
+      return this.filteredJobs.slice(start, start + this.jobsPerPage);
+    },
+  },
+  watch: {
+    searchQuery() {
+      this.currentPage = 1;
+    }
+  },
+  methods: {
+    goToJobDetail(id) {
+      this.$router.push({ name: 'JobDetails', params: { id } });
+    }
+  }
 };
 </script>
 

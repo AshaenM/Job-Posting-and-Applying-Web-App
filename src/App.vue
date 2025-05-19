@@ -21,7 +21,7 @@ import Home from './components/Home.vue'
               <router-link class="nav-link text-primary" :to="{ path: '/about'}">About</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/jobs'}">Jobs</router-link>
+              <router-link class="nav-link text-primary" :to="{ path: '/jobs'}">Available Jobs</router-link>
             </li>
           </ul>
         </div>

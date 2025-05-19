@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
 import Jobs from '../components/Jobs.vue'
@@ -13,7 +13,7 @@ const routes = [
     { path: '/apply/:id', name: 'ApplyForm', component: ApplyForm }
 ]
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
 })
 export default router

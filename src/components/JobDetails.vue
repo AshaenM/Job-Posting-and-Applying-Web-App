@@ -19,22 +19,30 @@
 </template>
 
 <script>
-import jobsData from '../jobs.json';
-
-export default {
-  data() {
-    return {
-      job: null
-    };
-  },
-  created() {   
-    const jobId = this.$route.params.id;
-    this.job = jobsData.find(job => job.id == jobId);
-  },
-  methods: {
-    applyForJob() {
-      this.$router.push({ name: 'ApplyForm', params: { id: this.job.id } });
+  export default {
+    data() {
+      return {
+        jobsData: [],
+        loading: true,
+        error: null,
+      };
+    },
+    async created() {
+      try {
+        const res = await fetch('/jobs.json');
+        if (!res.ok) throw new Error('Failed to load jobs data');
+        this.jobsData = await res.json();
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+    computed: {
+      job() {
+        const jobId = this.$route.params.id;
+        return this.jobsData.find(job => job.id === jobId);
+      }
     }
-  }
-};
+  };
 </script>
