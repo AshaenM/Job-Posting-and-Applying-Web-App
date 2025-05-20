@@ -40,7 +40,6 @@ export default {
   computed: {
     job() {
       const jobId = this.$route.params.id;
-      // Make sure types match, e.g. convert jobId to number if needed
       return this.jobs.find(job => job.id.toString() === jobId);
     }
   },

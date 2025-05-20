@@ -4,49 +4,26 @@
     <form @submit.prevent="handleSignUp">
       <div class="mb-3">
         <label for="name" class="form-label">Full Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          v-model="name"
-          @input="validateName"
-        />
+        <input type="text" class="form-control" id="name" v-model="name" @input="validateName" />
         <div v-if="nameError" class="text-danger">{{ nameError }}</div>
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          v-model="email"
-          @input="validateEmail"
-        />
+        <input type="email" class="form-control" id="email" v-model="email" @input="validateEmail" />
         <div v-if="emailError" class="text-danger">{{ emailError }}</div>
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          v-model="password"
-          @input="validatePassword"
-        />
+        <input type="password" class="form-control" id="password" v-model="password" @input="validatePassword" />
         <div v-if="passwordError" class="text-danger">{{ passwordError }}</div>
       </div>
 
       <div class="mb-3">
         <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="confirmPassword"
-          v-model="confirmPassword"
-          @input="validateConfirmPassword"
-        />
+        <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword"
+          @input="validateConfirmPassword" />
         <div v-if="confirmPasswordError" class="text-danger">{{ confirmPasswordError }}</div>
       </div>
 
@@ -162,11 +139,29 @@ export default {
         password: this.password,
       };
 
-      console.log('Applicant Registered:', applicantData);
-      this.success = 'Sign up successful!';
-      this.error = null;
-
-      this.name = this.email = this.password = this.confirmPassword = '';
+      fetch('https://mercury.swin.edu.au/cos30043/s104313773/A3/applicantSignUp.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(applicantData),
+      })
+        .then(async response => {
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || 'Unknown error');
+          }
+          return data;
+        })
+        .then(data => {
+          alert('Applicant successfully added!');
+          this.name = this.email = this.password = this.confirmPassword = '';
+          this.$router.push('/');
+        })
+        .catch(error => {
+          console.error('Submission failed:', error.message);
+          alert(error.message);
+        });
     },
   },
 };
