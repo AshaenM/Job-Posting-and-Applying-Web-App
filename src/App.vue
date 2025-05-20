@@ -17,6 +17,12 @@
               <router-link class="nav-link text-primary" :to="{ path: '/about'}">About</router-link>
             </li>
             <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/recruiter-login'}">Login (Recruiters)</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/applicant-login'}">Login (Applicants)</router-link>
+            </li>
+            <li class="nav-item">
               <router-link class="nav-link text-primary" :to="{ path: '/jobs'}">Available Jobs</router-link>
             </li>
           </ul>

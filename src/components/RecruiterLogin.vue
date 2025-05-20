@@ -124,6 +124,10 @@ export default {
 
                 const recruiters = await response.json();
 
+                const employeeExists = recruiters.some(
+                    recruiter => recruiter.employeeId === this.employeeId
+                );
+
                 const found = recruiters.find(
                     recruiter =>
                         recruiter.company === this.selectedCompany &&
@@ -134,6 +138,9 @@ export default {
                 if (found) {
                     this.success = "Login successful!";
                     this.error = null;
+                } else if (!employeeExists) {
+                    this.error = "Employee ID not found. Contact admin if you believe this is an error.";
+                    this.success = null;
                 } else {
                     this.error = "Invalid login credentials.";
                     this.success = null;
@@ -146,7 +153,7 @@ export default {
             }
 
             this.selectedCompany = this.employeeId = this.password = "";
-        },
+        }
     },
     mounted() {
         this.fetchCompanies();
