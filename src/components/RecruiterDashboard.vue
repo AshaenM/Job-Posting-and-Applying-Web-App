@@ -1,0 +1,44 @@
+<template>
+  <div class="container my-5">
+    <h2>Welcome, {{ fullName }}</h2>
+
+    <hr />
+
+    <div class="my-4">
+      <h4>Recruiter Actions</h4>
+      <ul>
+        <li><router-link to="/post-job">Post a New Job</router-link></li>
+        <li><router-link to="/view-applicants">View All Applicants</router-link></li>
+        <li><router-link to="/manage-jobs">Manage Posted Jobs</router-link></li>
+      </ul>
+    </div>
+
+    <button class="btn btn-danger mt-3" @click="logout">Logout</button>
+  </div>
+</template>
+
+<script setup>
+import { useUserStore } from '../stores/user'
+import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+
+const user = useUserStore()
+const router = useRouter()
+
+const fullName = computed(() => `${user.firstName} ${user.lastName}`.trim())
+
+function logout() {
+  user.$reset()
+  router.replace('/recruiter-login')
+}
+</script>
+
+<style scoped>
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+li {
+  margin-bottom: 10px;
+}
+</style>

@@ -10,20 +10,23 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
+            <li class="nav-item" v-if="user.role == 'recruiter'">
+              <router-link class="nav-link text-primary" to="/recruiter-dashboard">Dashboard</router-link>
+            </li>
             <li class="nav-item">
               <router-link class="nav-link text-primary" to="/">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/about'}">About</router-link>
+              <router-link class="nav-link text-primary" :to="{ path: '/about' }">About</router-link>
+            </li>
+            <li class="nav-item" v-if="!user.role">
+              <router-link class="nav-link text-primary" to="/recruiter-login">Login (Recruiters)</router-link>
+            </li>
+            <li class="nav-item" v-if="!user.role">
+              <router-link class="nav-link text-primary" to="/applicant-login">Login (Applicants)</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/recruiter-login'}">Login (Recruiters)</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/applicant-login'}">Login (Applicants)</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link text-primary" :to="{ path: '/jobs'}">Available Jobs</router-link>
+              <router-link class="nav-link text-primary" :to="{ path: '/jobs' }">Available Jobs</router-link>
             </li>
           </ul>
         </div>
@@ -37,13 +40,20 @@
     </div>
 
     <router-view />
-    
+
   </div>
 </template>
 
 <script>
+import { useUserStore } from '../src/stores/user'
+
+
 export default {
   name: 'App',
+  setup() {
+    const user = useUserStore()
+    return { user }
+  }
 };
 </script>
 
@@ -55,7 +65,8 @@ export default {
   font-family: 'Arial', sans-serif;
 }
 
-h2, h3 {
+h2,
+h3 {
   font-weight: bold;
 }
 
@@ -93,11 +104,11 @@ h2, h3 {
 }
 
 @media (max-width: 576px) {
-  .nav-link{
+  .nav-link {
     padding: 0.9rem 0rem;
   }
 
-  .navbar-nav .nav-item{
+  .navbar-nav .nav-item {
     margin-left: 0;
   }
 }

@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { useUserStore } from '../stores/user'
+
 export default {
     data() {
         return {
@@ -136,8 +138,18 @@ export default {
                 );
 
                 if (found) {
+                    const [firstName, ...rest] = found.name.trim().split(" ");
+                    const lastName = rest.join(" ");
+
+                    const userStore = useUserStore();
+                    userStore.setName(firstName, lastName);
+                    userStore.setRole("recruiter");
+
                     this.success = "Login successful!";
                     this.error = null;
+
+                    this.$router.push('/recruiter-dashboard');
+
                 } else if (!employeeExists) {
                     this.error = "Employee ID not found. Contact admin if you believe this is an error.";
                     this.success = null;
