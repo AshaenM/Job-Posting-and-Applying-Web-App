@@ -127,7 +127,7 @@ export default {
                 const found = recruiters.find(
                     recruiter =>
                         recruiter.company === this.selectedCompany &&
-                        recruiter.employeeId === Number(this.employeeId) &&
+                        recruiter.employeeId === this.employeeId &&
                         recruiter.password === this.password
                 );
 
