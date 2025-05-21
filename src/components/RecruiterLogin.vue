@@ -34,7 +34,7 @@
             <button type="submit" class="btn btn-primary" :disabled="!formIsValid">
                 Login
             </button>
-            <button @click="goBack" class="btn btn-secondary ms-2">Back</button>
+            <button type="button" @click="goBack" class="btn btn-secondary ms-2">Back</button>
         </form>
 
         <div v-if="error" class="alert alert-danger mt-3">{{ error }}</div>
@@ -90,9 +90,7 @@ export default {
             }
         },
         validatePassword() {
-            this.passwordError = this.password
-                ? null
-                : "Password is required.";
+            this.passwordError = this.password ? null : "Password is required.";
         },
         async fetchCompanies() {
             try {
@@ -100,10 +98,7 @@ export default {
                 if (!response.ok) throw new Error("Failed to load recruiters.");
 
                 const recruiters = await response.json();
-
-                // Extract unique company names
-                const uniqueCompanies = [...new Set(recruiters.map(r => r.company))];
-                this.companies = uniqueCompanies;
+                this.companies = [...new Set(recruiters.map(r => r.company))];
             } catch (err) {
                 console.error("Error loading companies:", err);
                 this.error = "Could not load companies.";
@@ -126,20 +121,21 @@ export default {
 
                 const recruiters = await response.json();
 
-                const employeeExists = recruiters.some(
+                const employee = recruiters.find(
                     recruiter => recruiter.employeeId === this.employeeId
                 );
 
-                const found = recruiters.find(
+                const isValidLogin = recruiters.find(
                     recruiter =>
                         recruiter.company === this.selectedCompany &&
                         recruiter.employeeId === this.employeeId &&
                         recruiter.password === this.password
                 );
 
-                if (found) {
-                    const [firstName, ...rest] = found.name.trim().split(" ");
-                    const lastName = rest.join(" ");
+                if (isValidLogin) {
+                    const nameParts = isValidLogin.name.trim().split(" ");
+                    const firstName = nameParts[0] || '';
+                    const lastName = nameParts.slice(1).join(" ") || '';
 
                     const userStore = useUserStore();
                     userStore.setName(firstName, lastName);
@@ -150,8 +146,7 @@ export default {
                     this.error = null;
 
                     this.$router.push('/recruiter-dashboard');
-
-                } else if (!employeeExists) {
+                } else if (!employee) {
                     this.error = "Employee ID not found. Contact admin if you believe this is an error.";
                     this.success = null;
                 } else {
@@ -165,14 +160,15 @@ export default {
                 this.success = null;
             }
 
-            this.selectedCompany = this.employeeId = this.password = "";
+            this.selectedCompany = "";
+            this.employeeId = "";
+            this.password = "";
         }
     },
     mounted() {
         this.fetchCompanies();
     }
 };
-
 </script>
 
 <style scoped>

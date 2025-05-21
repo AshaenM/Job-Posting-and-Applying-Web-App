@@ -24,12 +24,16 @@ if (!empty($applications)) {
 }
 $newApplicationId = $lastId + 1;
 
+$todayDate = date('Y-m-d');
+
 $newApplication = [
+    'applicantId' => $data['applicantId'],
     'applicationId' => $newApplicationId,
     'jobId' => $data['jobId'],
     'name' => $data['name'],
     'email' => $data['email'],
     'resume' => $data['resume'],
+    'date' => $todayDate,
     'status' => 'Pending Review'
 ];
 

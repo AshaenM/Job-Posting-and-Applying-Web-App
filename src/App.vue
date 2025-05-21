@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container-fluid">
         <h2>TalentHaven</h2>
 
@@ -12,6 +12,9 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item" v-if="user.role == 'recruiter'">
               <router-link class="nav-link text-primary" to="/recruiter-dashboard">Dashboard</router-link>
+            </li>
+            <li class="nav-item" v-if="user.role == 'applicant'">
+              <router-link class="nav-link text-primary" to="/applicant-dashboard">Dashboard</router-link>
             </li>
             <li class="nav-item">
               <router-link class="nav-link text-primary" to="/">Home</router-link>
@@ -25,7 +28,7 @@
             <li class="nav-item" v-if="!user.role">
               <router-link class="nav-link text-primary" to="/applicant-login">Login (Applicants)</router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="user.role == 'applicant'">
               <router-link class="nav-link text-primary" :to="{ path: '/jobs' }">Available Jobs</router-link>
             </li>
           </ul>
@@ -103,7 +106,7 @@ h3 {
   justify-content: center;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .nav-link {
     padding: 0.9rem 0rem;
   }

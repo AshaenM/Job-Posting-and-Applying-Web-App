@@ -133,6 +133,8 @@ export default {
         return;
       }
 
+      userStore.setRole("applicant");
+
       const applicantData = {
         name: this.name,
         email: this.email,
@@ -156,7 +158,7 @@ export default {
         .then(data => {
           alert('Applicant successfully added!');
           this.name = this.email = this.password = this.confirmPassword = '';
-          this.$router.push('/');
+          this.$router.push('/applicant-dashboard');
         })
         .catch(error => {
           console.error('Submission failed:', error.message);

@@ -4,14 +4,15 @@
         <form @submit.prevent="handleLogin" autocomplete="off">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" v-model="email" @input="validateEmail" autocomplete="off"/>
+                <input type="email" class="form-control" id="email" name="email" v-model="email" @input="validateEmail"
+                    autocomplete="off" />
                 <div v-if="emailError" class="text-danger">{{ emailError }}</div>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" v-model="password"
-                    @input="validatePassword" autocomplete="new-password"/>
+                    @input="validatePassword" autocomplete="new-password" />
                 <div v-if="passwordError" class="text-danger">{{ passwordError }}</div>
             </div>
 
@@ -31,6 +32,8 @@
 </template>
 
 <script>
+import { useUserStore } from '../stores/user'
+
 export default {
     data() {
         return {
@@ -83,7 +86,6 @@ export default {
 
                 const applicants = await response.json();
 
-                // Trim inputs to avoid leading/trailing space issues
                 const trimmedEmail = this.email.trim();
                 const trimmedPassword = this.password.trim();
 
@@ -92,9 +94,19 @@ export default {
                 );
 
                 if (applicant) {
+                    const user = useUserStore();
+
+                    // Split full name into first and last names
+                    const nameParts = applicant.name.trim().split(' ');
+                    user.firstName = nameParts[0] || '';
+                    user.lastName = nameParts.slice(1).join(' ') || '';
+                    user.id = applicant.applicant_id;
+                    user.role = 'applicant';
+
                     this.success = 'Login successful!';
                     this.error = null;
 
+                    this.$router.push('/applicant-dashboard');
                 } else {
                     this.error = 'Invalid email or password.';
                     this.success = null;
@@ -107,12 +119,14 @@ export default {
 
             this.email = '';
             this.password = '';
-        },
-        goBack() {
-            this.$router.go(-1);
         }
+
     },
+    goBack() {
+        this.$router.go(-1);
+    }
 };
+
 </script>
 
 <style scoped>

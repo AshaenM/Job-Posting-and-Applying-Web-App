@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { useUserStore } from '../stores/user'
+
 export default {
   data() {
     return {
@@ -56,7 +58,10 @@ export default {
   },
   methods: {
     submitApplication() {
+      const userStore = useUserStore();
+
       const application = {
+        applicantId: userStore.id,
         jobId: this.job.id,
         name: this.name,
         email: this.email,

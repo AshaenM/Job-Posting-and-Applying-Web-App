@@ -30,9 +30,11 @@ foreach ($applicants as $applicant) {
 
 $lastId = 0;
 if (!empty($applicants)) {
-    $lastId = intval(end($applicants)['applicant_id']);
+    $lastApplicantId = end($applicants)['applicant_id'];
+    $newApplicantId = strval(intval($lastApplicantId) + 1);
+} else {
+    $newApplicantId = "1";
 }
-$newApplicantId = $lastId + 1;
 
 $newApplicant = [
     'applicant_id' => $newApplicantId,

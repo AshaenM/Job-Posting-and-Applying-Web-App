@@ -12,6 +12,8 @@ import RecruiterDashboard from '../components/RecruiterDashboard.vue';
 import PostJob from '../components/PostJob.vue'
 import ViewApplications from '../components/ViewApplications.vue'
 import ManageJobs from '../components/ManageJobs.vue'
+import ApplicantDashboard from '../components/ApplicantDashboard.vue'
+import Applications from '../components/Applications.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -25,7 +27,9 @@ const routes = [
   { path: '/recruiter-dashboard', name: 'RecruiterDashboard', component: RecruiterDashboard, meta: { requiresAuth: true, role: 'recruiter' } },
   { path: '/post-job', name: 'PostJob', component: PostJob },
   { path: '/view-applications', name: 'ViewApplications', component: ViewApplications },
-  { path: '/manage-jobs', name: 'ManageJobs', component: ManageJobs }
+  { path: '/manage-jobs', name: 'ManageJobs', component: ManageJobs },
+  { path: '/applicant-dashboard', name: 'ApplicantDashboard', component: ApplicantDashboard },
+  { path: '/applications', name: 'Applications', component: Applications }
 ]
 const router = createRouter({
   history: createWebHashHistory(),
