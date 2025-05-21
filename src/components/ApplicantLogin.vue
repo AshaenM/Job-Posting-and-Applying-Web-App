@@ -1,17 +1,17 @@
 <template>
     <div class="container my-5">
         <h2 class="mb-4">Applicant Login</h2>
-        <form @submit.prevent="handleLogin">
+        <form @submit.prevent="handleLogin" autocomplete="off">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" v-model="email" @input="validateEmail" />
+                <input type="email" class="form-control" id="email" name="email" v-model="email" @input="validateEmail" autocomplete="off"/>
                 <div v-if="emailError" class="text-danger">{{ emailError }}</div>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" v-model="password"
-                    @input="validatePassword" />
+                <input type="password" class="form-control" id="password" name="password" v-model="password"
+                    @input="validatePassword" autocomplete="new-password"/>
                 <div v-if="passwordError" class="text-danger">{{ passwordError }}</div>
             </div>
 
