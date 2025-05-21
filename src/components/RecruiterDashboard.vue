@@ -8,7 +8,7 @@
       <h4>Recruiter Actions</h4>
       <ul>
         <li><router-link to="/post-job">Post a New Job</router-link></li>
-        <li><router-link to="/view-applicants">View All Applicants</router-link></li>
+        <li><router-link to="/view-applications">View All Applications</router-link></li>
         <li><router-link to="/manage-jobs">Manage Posted Jobs</router-link></li>
       </ul>
     </div>

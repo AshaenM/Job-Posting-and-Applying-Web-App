@@ -5,6 +5,7 @@ export const useUserStore = defineStore('user', {
     firstName: '',
     lastName: '',
     role: '',
+    id: '',
   }),
   getters: {
     fullName: (state) => `${state.firstName} ${state.lastName}`.trim(),
@@ -16,6 +17,9 @@ export const useUserStore = defineStore('user', {
     },
     setRole(role) {
       this.role = role
+    },
+    setID(id) {
+      this.id = id
     },
     persist: {
       storage: sessionStorage,

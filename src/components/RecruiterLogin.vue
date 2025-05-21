@@ -144,6 +144,7 @@ export default {
                     const userStore = useUserStore();
                     userStore.setName(firstName, lastName);
                     userStore.setRole("recruiter");
+                    userStore.setID(this.employeeId);
 
                     this.success = "Login successful!";
                     this.error = null;
