@@ -10,6 +10,6 @@ export default defineConfig({
 })
 
 
-JobDetails.vue, ApplyForm.vue, Jobs.vue
+JobDetails.vue, ApplyForm.vue, Jobs.vue, ApplicantLogin.vue, RecruiterLogin.vue
 
 const res = await fetch('/jobs.json');
