@@ -9,21 +9,23 @@ import ApplicantSignUp from '../components/ApplicantSignUp.vue';
 import ApplicantLogin from '../components/ApplicantLogin.vue';
 import RecruiterLogin from '../components/RecruiterLogin.vue';
 import RecruiterDashboard from '../components/RecruiterDashboard.vue';
+import PostJob from '../components/PostJob.vue'
 
 const routes = [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/jobs', component: Jobs },
-    { path: '/job/:id', name: 'JobDetails', component: JobDetails },
-    { path: '/apply/:id', name: 'ApplyForm', component: ApplyForm },
-    { path: '/applicant-signup', name: 'ApplicantSignUp', component: ApplicantSignUp },
-    { path: '/applicant-login', name: 'ApplicantLogin', component: ApplicantLogin },
-    { path: '/recruiter-login', name: 'RecruiterLogin', component: RecruiterLogin },
-    { path: '/recruiter-dashboard', name: 'RecruiterDashboard', component: RecruiterDashboard, meta: { requiresAuth: true, role: 'recruiter' } }
+  { path: '/', component: Home },
+  { path: '/about', component: About },
+  { path: '/jobs', component: Jobs },
+  { path: '/job/:id', name: 'JobDetails', component: JobDetails },
+  { path: '/apply/:id', name: 'ApplyForm', component: ApplyForm },
+  { path: '/applicant-signup', name: 'ApplicantSignUp', component: ApplicantSignUp },
+  { path: '/applicant-login', name: 'ApplicantLogin', component: ApplicantLogin },
+  { path: '/recruiter-login', name: 'RecruiterLogin', component: RecruiterLogin },
+  { path: '/recruiter-dashboard', name: 'RecruiterDashboard', component: RecruiterDashboard, meta: { requiresAuth: true, role: 'recruiter' } },
+  { path: '/post-job', name: 'PostJob', component: PostJob }
 ]
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes,
+  history: createWebHashHistory(),
+  routes,
 })
 
 router.beforeEach((to, from, next) => {
