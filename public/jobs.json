@@ -2,7 +2,7 @@
     {
         "id": "01",
         "title": "Software Developer",
-        "company": "Teeters",
+        "company": "Google",
         "desc": "Develop, test, and maintain software applications for internal business systems.",
         "rate": 40,
         "location": "New York, NY",
@@ -17,7 +17,7 @@
     {
         "id": "02",
         "title": "Backend Engineer",
-        "company": "BluePixel",
+        "company": "Google",
         "desc": "Design and implement APIs and backend services supporting web and mobile platforms.",
         "rate": 45,
         "location": "Austin, TX",
@@ -32,7 +32,7 @@
     {
         "id": "03",
         "title": "Frontend Developer",
-        "company": "NovaTech",
+        "company": "Google",
         "desc": "Build and maintain responsive web interfaces and collaborate with UI\/UX designers.",
         "rate": 38,
         "location": "Remote",
@@ -47,7 +47,7 @@
     {
         "id": "04",
         "title": "Mobile App Developer",
-        "company": "AppNest",
+        "company": "Google",
         "desc": "Develop cross-platform mobile applications for consumer-facing products.",
         "rate": 42,
         "location": "Los Angeles, CA",
@@ -62,7 +62,7 @@
     {
         "id": "05",
         "title": "DevOps Engineer",
-        "company": "SysFusion",
+        "company": "Google",
         "desc": "Implement CI\/CD pipelines, monitor infrastructure, and automate deployments.",
         "rate": 50,
         "location": "Chicago, IL",
@@ -108,7 +108,7 @@
     {
         "id": "08",
         "title": "Data Analyst",
-        "company": "InSight Analytics",
+        "company": "Google",
         "desc": "Analyze datasets, generate business reports, and visualize trends using dashboards.",
         "rate": 35,
         "location": "Remote",
