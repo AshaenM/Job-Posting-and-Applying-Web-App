@@ -22,6 +22,9 @@
             <li class="nav-item">
               <router-link class="nav-link text-primary" :to="{ path: '/about' }">About</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link text-primary" :to="{ path: '/news' }">News</router-link>
+            </li>
             <li class="nav-item" v-if="!user.role">
               <router-link class="nav-link text-primary" to="/recruiter-login">Login (Recruiters)</router-link>
             </li>
