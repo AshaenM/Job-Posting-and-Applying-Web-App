@@ -27,7 +27,7 @@ if (!empty($jobs)) {
 $newJobId = $lastId + 1;
 
 $newJob = [
-    'id' => $newJobId,
+    'id' => (string)$newJobId,
     'title' => $data['title'],
     'company' => $data['company'],
     'desc' => $data['desc'],
