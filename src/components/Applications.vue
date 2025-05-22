@@ -52,11 +52,11 @@ export default {
                 const userStore = useUserStore();
                 const userID = userStore.id;
 
-                const appsRes = await fetch("/applications.json");
+                const appsRes = await fetch('./read.php?file=applications');
                 if (!appsRes.ok) throw new Error("Failed to fetch applications");
                 const allApplications = await appsRes.json();
 
-                const jobsRes = await fetch("/jobs.json");
+                const jobsRes = await fetch('./read.php?file=jobs');
                 if (!jobsRes.ok) throw new Error("Failed to fetch jobs");
                 this.jobs = await jobsRes.json();
 

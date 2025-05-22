@@ -112,9 +112,9 @@ export default {
     async fetchData() {
       try {
         const [appsRes, jobsRes, recsRes] = await Promise.all([
-          fetch('/applications.json'),
-          fetch('/jobs.json'),
-          fetch('/recruiters.json')
+          fetch('./read.php?file=applications'),
+          fetch('./read.php?file=jobs'),
+          fetch('./read.php?file=recruiters')
         ]);
 
         this.applications = await appsRes.json();

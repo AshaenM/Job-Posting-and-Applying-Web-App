@@ -13,6 +13,7 @@ import RecruiterDashboard from '../components/RecruiterDashboard.vue';
 import PostJob from '../components/PostJob.vue'
 import ViewApplications from '../components/ViewApplications.vue'
 import ManageJobs from '../components/ManageJobs.vue'
+import ApplicantSavedJobs from '../components/ApplicantSavedJobs.vue'
 import ApplicantDashboard from '../components/ApplicantDashboard.vue'
 import Applications from '../components/Applications.vue'
 
@@ -30,22 +31,13 @@ const routes = [
   { path: '/post-job', name: 'PostJob', component: PostJob },
   { path: '/view-applications', name: 'ViewApplications', component: ViewApplications },
   { path: '/manage-jobs', name: 'ManageJobs', component: ManageJobs },
+  { path: '/saved-jobs', name: 'ApplicantSavedJobs', component: ApplicantSavedJobs },
   { path: '/applicant-dashboard', name: 'ApplicantDashboard', component: ApplicantDashboard },
   { path: '/applications', name: 'Applications', component: Applications }
 ]
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-})
-
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-
-  if (to.meta.requiresAuth && userStore.role !== to.meta.role) {
-    next('/recruiter-login')  // redirect to login if not authenticated
-  } else {
-    next()
-  }
 })
 
 export default router

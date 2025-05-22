@@ -118,7 +118,7 @@ const submitForm = () => {
         })
         .then(() => {
             alert('Job posted successfully!')
-            router.push('/')
+            router.push('/manage-jobs')
         })
         .catch(error => {
             console.error('Submission failed:', error)

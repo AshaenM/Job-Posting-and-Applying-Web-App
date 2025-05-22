@@ -94,7 +94,7 @@ export default {
         },
         async fetchCompanies() {
             try {
-                const response = await fetch("/recruiters.json");
+                const response = await fetch('./read.php?file=recruiters');
                 if (!response.ok) throw new Error("Failed to load recruiters.");
 
                 const recruiters = await response.json();
@@ -116,7 +116,7 @@ export default {
             }
 
             try {
-                const response = await fetch("/recruiters.json");
+                const response = await fetch('./read.php?file=recruiters');
                 if (!response.ok) throw new Error("Failed to load recruiters file.");
 
                 const recruiters = await response.json();

@@ -79,7 +79,7 @@ export default {
             }
 
             try {
-                const response = await fetch('/applicants.json');
+                const response = await fetch('./read.php?file=applicants');
                 if (!response.ok) {
                     throw new Error('Failed to load applicants data.');
                 }
@@ -89,28 +89,42 @@ export default {
                 const trimmedEmail = this.email.trim();
                 const trimmedPassword = this.password.trim();
 
-                const applicant = applicants.find(app =>
-                    app.email === trimmedEmail && app.password === trimmedPassword
-                );
+                // Find applicant by email only
+                const applicantByEmail = applicants.find(app => app.email === trimmedEmail);
 
-                if (applicant) {
-                    const user = useUserStore();
-
-                    // Split full name into first and last names
-                    const nameParts = applicant.name.trim().split(' ');
-                    user.firstName = nameParts[0] || '';
-                    user.lastName = nameParts.slice(1).join(' ') || '';
-                    user.id = applicant.applicant_id;
-                    user.role = 'applicant';
-
-                    this.success = 'Login successful!';
-                    this.error = null;
-
-                    this.$router.push('/applicant-dashboard');
-                } else {
-                    this.error = 'Invalid email or password.';
+                if (!applicantByEmail) {
+                    // Email not found, suggest registering
+                    this.error = 'Account not found, please register.';
                     this.success = null;
+                    return;
                 }
+
+                // Email exists, now check password match
+                if (applicantByEmail.password !== trimmedPassword) {
+                    this.error = 'Incorrect password.';
+                    this.success = null;
+                    return;
+                }
+
+                // Both email and password match
+                if (!applicantByEmail.applicant_id) {
+                    this.error = 'Account data incomplete, please contact support.';
+                    this.success = null;
+                    return;
+                }
+
+                const user = useUserStore();
+                const nameParts = applicantByEmail.name.trim().split(' ');
+                user.firstName = nameParts[0] || '';
+                user.lastName = nameParts.slice(1).join(' ') || '';
+                user.id = applicantByEmail.applicant_id;
+                user.role = 'applicant';
+
+                this.success = 'Login successful!';
+                this.error = null;
+
+                this.$router.push('/applicant-dashboard');
+
             } catch (err) {
                 this.error = 'An error occurred while logging in.';
                 this.success = null;
@@ -120,7 +134,6 @@ export default {
             this.email = '';
             this.password = '';
         }
-
     },
     goBack() {
         this.$router.go(-1);

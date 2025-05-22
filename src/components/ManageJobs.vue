@@ -101,8 +101,8 @@ export default {
         async fetchJobs() {
             try {
                 const [jobsRes, recsRes] = await Promise.all([
-                    fetch('/jobs.json'),
-                    fetch('/recruiters.json'),
+                    fetch('./read.php?file=jobs'),
+                    fetch('./read.php?file=recruiters'),
                 ]);
 
                 this.jobs = await jobsRes.json();

@@ -57,6 +57,7 @@ export default {
       confirmPasswordError: null,
       error: null,
       success: null,
+      userStore: null,
     };
   },
   computed: {
@@ -74,9 +75,9 @@ export default {
     },
   },
   created() {
-    const userStore = useUserStore();
-    if (userStore.firstName || userStore.lastName) {
-      this.name = `${userStore.firstName} ${userStore.lastName}`.trim();
+    this.userStore = useUserStore();
+    if (this.userStore.firstName || this.userStore.lastName) {
+      this.name = `${this.userStore.firstName} ${this.userStore.lastName}`.trim();
     }
   },
   methods: {
@@ -133,7 +134,7 @@ export default {
         return;
       }
 
-      userStore.setRole("applicant");
+      this.userStore.setRole("applicant");
 
       const applicantData = {
         name: this.name,

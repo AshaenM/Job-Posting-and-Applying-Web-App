@@ -9,7 +9,7 @@ if (!$applicationId) {
     exit;
 }
 
-$file = 'applications.json';
+$file = 'data/applications.json';
 
 $applications = json_decode(file_get_contents($file), true);
 $applications = array_filter($applications, function ($app) use ($applicationId) {

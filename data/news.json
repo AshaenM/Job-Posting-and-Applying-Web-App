@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "date": "2025-05-20",
+    "title": "Tech Hiring Booms in Melbourne",
+    "content": "Recruiters report a 35% increase in tech-related job postings, driven by demand for AI and full-stack developers.",
+    "category": "Job Market"
+  },
+  {
+    "id": 2,
+    "date": "2025-05-18",
+    "title": "Tips for Standing Out in Job Applications",
+    "content": "Career experts suggest customizing resumes for each application and leveraging personal projects during interviews.",
+    "category": "Career Advice"
+  },
+  {
+    "id": 3,
+    "date": "2025-05-15",
+    "title": "Remote Work Policies Updated in Australia",
+    "content": "New legislation ensures hybrid work options for eligible employees, prompting recruiters to adjust job listings accordingly.",
+    "category": "Workplace"
+  },
+  {
+    "id": 4,
+    "date": "2025-05-13",
+    "title": "Top 10 In-Demand Skills in 2025",
+    "content": "Cloud computing, data analytics, and cybersecurity lead the list of most sought-after skills this year.",
+    "category": "Skills"
+  },
+  {
+    "id": 5,
+    "date": "2025-05-10",
+    "title": "How Startups Are Attracting Talent",
+    "content": "Startups are offering flexible work schedules and equity to attract skilled applicants in a competitive job market.",
+    "category": "Recruitment Trends"
+  },
+  {
+    "id": 6,
+    "date": "2025-05-07",
+    "title": "Resume Screening Tools: What Recruiters Look For",
+    "content": "Most ATS tools scan for keywords in job descriptions. Tailoring your CV is now more important than ever.",
+    "category": "Recruiting Tools"
+  },
+  {
+    "id": 7,
+    "date": "2025-05-05",
+    "title": "Job Fairs to Watch This Quarter",
+    "content": "Virtual and in-person job fairs are scheduled across universities in June. Great networking opportunity for job seekers.",
+    "category": "Events"
+  },
+  {
+    "id": 8,
+    "date": "2025-05-03",
+    "title": "Soft Skills Make a Strong Comeback",
+    "content": "Companies are placing increased value on communication, adaptability, and emotional intelligence.",
+    "category": "Hiring Trends"
+  },
+  {
+    "id": 9,
+    "date": "2025-04-30",
+    "title": "New Internship Grants Announced",
+    "content": "Government to provide subsidies for companies offering internships to students and recent graduates.",
+    "category": "Internships"
+  },
+  {
+    "id": 10,
+    "date": "2025-04-28",
+    "title": "Salary Transparency Laws Go Live",
+    "content": "Recruiters are now required to include salary ranges in job postings under new transparency laws.",
+    "category": "Legal Update"
+  }
+]

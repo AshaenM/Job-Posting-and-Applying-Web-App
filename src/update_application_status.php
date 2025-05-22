@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$applicationsFile = 'applications.json';
+$applicationsFile = 'data/applications.json';
 
 if (!isset($_GET['id']) || !isset($_GET['status'])) {
     echo json_encode(['message' => 'Missing parameters']);

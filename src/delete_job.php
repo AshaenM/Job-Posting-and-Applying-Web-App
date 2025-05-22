@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$filename = 'jobs.json';
+$filename = 'data/jobs.json';
 
 if (!isset($_GET['id'])) {
     http_response_code(400);

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$filename = 'jobs.json';
+$filename = 'data/jobs.json';
 $data = json_decode(file_get_contents('php://input'), true);
 
 if (!$data || !isset($data['id'])) {

@@ -2,7 +2,7 @@
 
 header('Content-Type: application/json');
 
-$filePath = 'jobs.json';
+$filePath = 'data/jobs.json';
 
 $data = json_decode(file_get_contents('php://input'), true);
 

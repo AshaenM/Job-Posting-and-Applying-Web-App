@@ -9,6 +9,7 @@
       <ul>
         <li><router-link to="/jobs">Browse Available Jobs</router-link></li>
         <li><router-link to="/applications">View My Applications</router-link></li>
+        <li><router-link to="/saved-jobs">Saved Jobs</router-link></li>
       </ul>
     </div>
 

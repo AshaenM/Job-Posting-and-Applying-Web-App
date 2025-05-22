@@ -1,6 +1,6 @@
 <?php
 
-$filePath = 'applications.json';
+$filePath = 'data/applications.json';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
