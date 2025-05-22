@@ -6,7 +6,17 @@
         <div class="row mb-4">
             <div class="col-md-6 mx-auto">
                 <input v-model="searchQuery" class="form-control" type="text"
-                    placeholder="Search by title, content, category, or date..." />
+                    placeholder="Search by title, content or category..." />
+            </div>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="row mb-4">
+            <div class="col-md-8 mx-auto text-center">
+                <div class="form-check form-check-inline" v-for="cat in allCategories" :key="cat">
+                    <input class="form-check-input" type="radio" :id="cat" :value="cat" v-model="selectedCategory" />
+                    <label class="form-check-label" :for="cat">{{ cat }}</label>
+                </div>
             </div>
         </div>
 
@@ -61,6 +71,7 @@ export default {
     setup() {
         const newsItems = ref([]);
         const searchQuery = ref("");
+        const selectedCategory = ref("All");
         const currentPage = ref(1);
         const itemsPerPage = 5;
 
@@ -73,15 +84,25 @@ export default {
             }
         });
 
+        // Extract all unique categories
+        const allCategories = computed(() => {
+            const categories = new Set(newsItems.value.map(item => item.category));
+            return ["All", ...Array.from(categories)];
+        });
+
+        // Filtered by search and category
         const filteredNews = computed(() => {
             return newsItems.value.filter((item) => {
                 const q = searchQuery.value.toLowerCase();
-                return (
+                const matchesQuery =
                     item.title.toLowerCase().includes(q) ||
                     item.content.toLowerCase().includes(q) ||
-                    item.category.toLowerCase().includes(q) ||
-                    item.date.includes(q)
-                );
+                    item.category.toLowerCase().includes(q)
+
+                const matchesCategory =
+                    selectedCategory.value === "All" || item.category === selectedCategory.value;
+
+                return matchesQuery && matchesCategory;
             });
         });
 
@@ -109,19 +130,21 @@ export default {
             });
         };
 
-        watch(searchQuery, () => {
+        watch([searchQuery, selectedCategory], () => {
             currentPage.value = 1;
         });
 
         return {
             searchQuery,
+            selectedCategory,
             currentPage,
             totalPages,
             paginatedNews,
             changePage,
             formatDate,
+            allCategories,
         };
-    },
+    }
 };
 </script>
 

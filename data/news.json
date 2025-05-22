@@ -68,5 +68,40 @@
     "title": "Salary Transparency Laws Go Live",
     "content": "Recruiters are now required to include salary ranges in job postings under new transparency laws.",
     "category": "Legal Update"
+  },
+  {
+    "id": 11,
+    "date": "2025-05-22",
+    "title": "Full-Stack Developers See Highest Salary Growth",
+    "content": "The demand for full-stack developers has led to a 12% year-on-year salary increase in major Australian cities.",
+    "category": "Job Market"
+  },
+  {
+    "id": 12,
+    "date": "2025-05-21",
+    "title": "Mastering Behavioral Interviews",
+    "content": "Career coaches advise using the STAR method to answer competency questions during interviews.",
+    "category": "Career Advice"
+  },
+  {
+    "id": 13,
+    "date": "2025-05-19",
+    "title": "Open-Plan Offices Make a Return",
+    "content": "Some companies are shifting back to collaborative open-office layouts as remote work needs decline.",
+    "category": "Workplace"
+  },
+  {
+    "id": 14,
+    "date": "2025-05-16",
+    "title": "Top Certifications for Cybersecurity Roles",
+    "content": "Experts recommend CISSP and CompTIA Security+ as key credentials to stand out in 2025.",
+    "category": "Skills"
+  },
+  {
+    "id": 15,
+    "date": "2025-05-14",
+    "title": "Startups Double Down on Employee Wellbeing",
+    "content": "Flexible hours, mental health resources, and 4-day workweeks are becoming standard in startup culture.",
+    "category": "Recruitment Trends"
   }
 ]
