@@ -42,47 +42,58 @@
             </div>
         </div>
     </div>
+    <div>
+        <Motivation />
+    </div>
 </template>
 
-<style scoped>
+<script>
+import Motivation from './Motivation.vue';
 
+export default {
+    components: {
+        Motivation
+    }
+};
+</script>
+
+<style scoped>
 .info-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.info-text{
+.info-text {
     text-align: justify;
 }
 
 .info-img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 992px) {
-  .info-block {
-    text-align: left;
-  }
+    .info-block {
+        text-align: left;
+    }
 
-  .info-img {
-    margin-bottom: 0;
-    margin-right: 1.5rem;
-  }
+    .info-img {
+        margin-bottom: 0;
+        margin-right: 1.5rem;
+    }
 }
 
 .info-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-  padding: 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    padding: 0 0.5rem;
 }
-
 </style>
