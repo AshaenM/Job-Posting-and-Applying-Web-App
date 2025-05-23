@@ -22,7 +22,7 @@ watch([firstName, lastName], ([newFirst, newLast]) => {
 </script>
 
 <template>
-    <div class="container mt-5 p-4 bg-light rounded shadow">
+    <div class="container mt-5 p-4 rounded shadow" v-bg-color="'#ffffff'">
         <h2 v-if="welcomeMessage" class="text-primary text-center mb-4">{{ welcomeMessage }}</h2>
 
         <p class="mb-4">
@@ -88,10 +88,3 @@ watch([firstName, lastName], ([newFirst, newLast]) => {
         </div>
     </div>
 </template>
-
-
-<style scoped>
-body {
-    background-color: #f8f9fa;
-}
-</style>

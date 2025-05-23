@@ -1,6 +1,6 @@
 <template>
     <div class="container my-5 text-center">
-        <div class="card shadow p-4">
+        <div class="card shadow p-4" v-bg-color="'#faffff'">
             <h4 class="mb-3">💡 Daily Motivation</h4>
             <blockquote class="blockquote">
                 <p class="mb-0">{{ quote.text }}</p>

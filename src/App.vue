@@ -76,14 +76,6 @@ h3 {
   font-weight: bold;
 }
 
-.nav-bar-container {
-  background-color: rgb(250, 246, 246);
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .nav-link {
   padding: 0.9rem 2rem;
   transition: color 0.3s ease;

@@ -11,4 +11,13 @@ const pinia = createPinia()
 app.use(pinia)
 app.use(router)
 
+app.directive('bg-color', {
+  beforeMount(el, binding) {
+    el.style.backgroundColor = binding.value || 'red';
+  },
+  updated(el, binding) {
+    el.style.backgroundColor = binding.value || 'red';
+  }
+});
+
 app.mount('#app')
