@@ -135,6 +135,7 @@ export default {
       }
 
       this.userStore.setRole("applicant");
+      this.userStore.setLoggedIn(true);
 
       const applicantData = {
         name: this.name,
@@ -157,6 +158,9 @@ export default {
           return data;
         })
         .then(data => {
+          if (data.applicant_id) {
+            this.userStore.setID(data.applicant_id);
+          }
           alert('Applicant successfully added!');
           this.name = this.email = this.password = this.confirmPassword = '';
           this.$router.push('/applicant-dashboard');

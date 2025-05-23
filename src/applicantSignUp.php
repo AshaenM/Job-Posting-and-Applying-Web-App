@@ -47,5 +47,5 @@ $applicants[] = $newApplicant;
 
 file_put_contents($filePath, json_encode($applicants, JSON_PRETTY_PRINT));
 
-echo json_encode(['message' => 'Applicant successfully added.']);
+echo json_encode(['message' => 'Applicant successfully added.', "applicant_id" => $newApplicantId]);
 ?>
