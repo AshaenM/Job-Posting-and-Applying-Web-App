@@ -7,18 +7,18 @@
         <caption>Jobs</caption>
         <thead>
           <tr>
-            <th class="bg-primary text-white">Title</th>
-            <th class="bg-primary text-white">Location</th>
-            <th class="bg-primary text-white">Type</th>
-            <th class="bg-primary text-white">Rate ($/hr)</th>
+            <th class="bg-primary text-white" scope="col" id="title">Title</th>
+            <th class="bg-primary text-white" scope="col" id="location">Location</th>
+            <th class="bg-primary text-white" scope="col" id="type">Type</th>
+            <th class="bg-primary text-white" scope="col" id="rate">Rate ($/hr)</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="job in paginatedJobs" :key="job.id" @click="goToJobDetail(job.id)" style="cursor: pointer;">
-            <td>{{ job.title }}</td>
-            <td>{{ job.location }}</td>
-            <td>{{ job.employmentType }}</td>
-            <td>{{ job.rate }}</td>
+            <td headers="title">{{ job.title }}</td>
+            <td headers="location">{{ job.location }}</td>
+            <td headers="type">{{ job.employmentType }}</td>
+            <td headers="rate">{{ job.rate }}</td>
           </tr>
           <tr v-if="paginatedJobs.length === 0">
             <td colspan="4" class="text-center">No jobs found.</td>

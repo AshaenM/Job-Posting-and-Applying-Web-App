@@ -9,21 +9,24 @@
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
+                <caption class="text-center">Jobs</caption>
                 <thead>
                     <tr>
-                        <th class="bg-primary text-white">Title</th>
-                        <th class="bg-primary text-white">Location</th>
-                        <th class="bg-primary text-white">Type</th>
-                        <th class="bg-primary text-white">Rate ($/hr)</th>
-                        <th class="bg-primary text-white">Actions</th>
+                        <th class="bg-secondary text-white" scope="col" id="title">Title</th>
+                        <th class="bg-secondary text-white" scope="col" id="company">Company</th>
+                        <th class="bg-secondary text-white" scope="col" id="location">Location</th>
+                        <th class="bg-secondary text-white" scope="col" id="type">Type</th>
+                        <th class="bg-secondary text-white" scope="col" id="rate">Rate ($/hr)</th>
+                        <th class="bg-secondary text-white" scope="col" id="actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="job in filteredJobs" :key="job.id">
-                        <td>{{ job.title }}</td>
-                        <td>{{ job.location }}</td>
-                        <td>{{ job.employmentType }}</td>
-                        <td>{{ job.rate }}</td>
+                        <td headers="title">{{ job.title }}</td>
+                        <td headers="company">{{ job.company }}</td>
+                        <td headers="location">{{ job.location }}</td>
+                        <td headers="type">{{ job.employmentType }}</td>
+                        <td headers="rate">{{ job.rate }}</td>
                         <td>
                             <button class="btn btn-sm btn-warning me-2" @click="editJob(job)">Edit</button>
                             <button class="btn btn-sm btn-danger" @click="deleteJob(job.id)">Delete</button>

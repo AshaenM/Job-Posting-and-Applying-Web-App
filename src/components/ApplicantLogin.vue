@@ -133,10 +133,10 @@ export default {
 
             this.email = '';
             this.password = '';
+        },
+        goBack() {
+            this.$router.go(-1);
         }
-    },
-    goBack() {
-        this.$router.go(-1);
     }
 };
 
