@@ -96,9 +96,11 @@ export default {
         job.location.toLowerCase().includes(query)
       );
     },
+    //Calculates the total number of pages required when only 5 jobs are let per page
     totalPages() {
       return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
     },
+    // Returns the jobs per page
     paginatedJobs() {
       const start = (this.currentPage - 1) * this.jobsPerPage;
       return this.filteredJobs.slice(start, start + this.jobsPerPage);

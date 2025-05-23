@@ -6,8 +6,10 @@ const firstName = ref('')
 const lastName = ref('')
 const pictureChoice = ref('')
 
+// Pinia user state management stoage
 const userStore = useUserStore()
 
+// Welcome message
 const welcomeMessage = computed(() => {
     if (firstName.value || lastName.value) {
         return `Hi ${firstName.value} ${lastName.value}!`
@@ -15,6 +17,7 @@ const welcomeMessage = computed(() => {
     return ''
 })
 
+// Check if the firstName or lastName is enterred
 watch([firstName, lastName], ([newFirst, newLast]) => {
     userStore.setName(newFirst, newLast)
 })
@@ -60,6 +63,7 @@ watch([firstName, lastName], ([newFirst, newLast]) => {
         </form>
 
         <div v-if="pictureChoice" class="mt-4 text-center">
+            <!--SHhow picture and relevant text with button based on radio button selection-->
             <img v-if="pictureChoice === 'applicant'" src="../assets/applicant.jpg" alt="Applicant Image"
                 class="img-fluid rounded shadow mb-3" width="400" />
             <img v-else-if="pictureChoice === 'recruiter'" src="../assets/recruiter.jpg" alt="Recruiter Image"

@@ -81,7 +81,10 @@ export default {
         };
     },
     computed: {
+        // Map the 'id' state from the user store into this component
         ...mapState(useUserStore, ['id']),
+
+        // Find the company of the recruiter based on the current user's id
         recruiterCompany() {
             const recruiter = this.recruiters.find(r => r.employeeId === this.id);
             return recruiter ? recruiter.company : '';

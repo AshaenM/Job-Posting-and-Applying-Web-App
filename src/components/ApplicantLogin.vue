@@ -46,6 +46,7 @@ export default {
         };
     },
     computed: {
+        // Checks if both the email and password are entered
         formIsValid() {
             return !this.emailError && !this.passwordError && this.email && this.password;
         },
@@ -113,6 +114,7 @@ export default {
                     return;
                 }
 
+                // Assign user fields for state managment
                 const user = useUserStore();
                 const nameParts = applicantByEmail.name.trim().split(' ');
                 user.setName(nameParts[0] || '', nameParts.slice(1).join(' ') || '');

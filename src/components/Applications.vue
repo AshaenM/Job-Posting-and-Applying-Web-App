@@ -47,11 +47,13 @@ export default {
         };
     },
     methods: {
+        // Fetches applications and corresponding jobs for the logged-in user
         async fetchApplicationsAndJobs() {
             try {
                 const userStore = useUserStore();
                 const userID = userStore.id;
 
+                // Fetch all data from server
                 const appsRes = await fetch('./read.php?file=applications');
                 if (!appsRes.ok) throw new Error("Failed to fetch applications");
                 const allApplications = await appsRes.json();
@@ -60,10 +62,12 @@ export default {
                 if (!jobsRes.ok) throw new Error("Failed to fetch jobs");
                 this.jobs = await jobsRes.json();
 
+                // Filter applications to only include those that belong to the current user
                 const userApplications = allApplications.filter(
                     (app) => app.applicantId === userID
                 );
 
+                // Map user applications to include job details (company and title)
                 this.applications = userApplications.map((app) => {
                     const job = this.jobs.find((j) => j.id === app.jobId);
                     return {
@@ -85,6 +89,7 @@ export default {
             return new Date(dateString).toLocaleDateString(undefined, options);
         },
 
+        // Return Bootstrap badge class based on application status string
         statusBadgeClass(status) {
             switch (status.toLowerCase()) {
                 case 'accepted':
@@ -108,6 +113,7 @@ export default {
             }
         }
     },
+    // Lifecycle hook that calls fetchApplicationsAndJobs when component is mounted
     mounted() {
         this.fetchApplicationsAndJobs();
     },

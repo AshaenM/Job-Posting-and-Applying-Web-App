@@ -143,11 +143,11 @@ export default {
       };
 
       fetch('https://mercury.swin.edu.au/cos30043/s104313773/A3/applicantSignUp.php', {
-        method: 'POST',
+        method: 'POST', // Use POST method to send data securely to the server
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(applicantData),
+        body: JSON.stringify(applicantData), // Convert the applicant data object to JSON string
       })
         .then(async response => {
           const data = await response.json();

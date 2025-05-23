@@ -27,6 +27,7 @@ const router = useRouter()
 
 const fullName = computed(() => `${user.firstName} ${user.lastName}`.trim())
 
+// Simple logout function to redict user back to the login page and the user role files are set to null
 function logout() {
   user.$reset()
   router.replace('/applicant-login')

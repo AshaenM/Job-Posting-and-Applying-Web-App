@@ -55,17 +55,21 @@ export default {
         this.applicantId = userStore.id;
 
         try {
+            // Fetch shortlisted jobs and all jobs simultaneously
             const [shortlistRes, jobsRes] = await Promise.all([
                 fetch('./read.php?file=shortlists'),
                 fetch('./read.php?file=jobs'),
             ]);
 
+            // Check if both requests were successful
             if (!shortlistRes.ok || !jobsRes.ok)
                 throw new Error("Failed to load data");
 
+            // Parse the responses as JSON
             const shortlists = await shortlistRes.json();
             const jobs = await jobsRes.json();
 
+            // Filter shortlist entries that belong to the current applicant and map to an array of job IDs that are shortlisted by this applicant
             this.shortlistedIds = shortlists
                 .filter((item) => item.applicant_id === this.applicantId)
                 .map((item) => item.job_id);
