@@ -3,7 +3,7 @@
         <h2 id="home-heading" class="text-center mb-5">Why choose TalentHaven</h2>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-start mb-4 info-block">
-                <img src="../assets/apply.jpg" alt="Person applying for a job" class="info-img" />
+                <img v-bind:src="images.apply.src" :alt="images.apply.alt" class="info-img" />
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <p class="info-text">Easily apply for jobs that match your skills and interests. TalentHaven streamlines
@@ -16,7 +16,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-start mb-4 info-block">
-                <img src="../assets/hiring.jpeg" alt="Hiring manager reviewing applications" class="info-img" />
+                <img v-bind:src="images.hiring.src" :alt="images.hiring.alt" class="info-img" />
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <p class="info-text">Post job openings and discover the right candidates quickly. Our platform helps you
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-start mb-4 info-block">
-                <img src="../assets/privacy.jpg" alt="Protecting user data and privacy" class="info-img" />
+                <img v-bind:src="images.privacy.src" :alt="images.privacy.alt" class="info-img" />
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <p class="info-text">We prioritize your data security. All applications and company information are
@@ -49,11 +49,32 @@
 
 <script>
 import Motivation from './Motivation.vue';
+import applyImg from '../assets/apply.jpg';
+import hiringImg from '../assets/hiring.jpeg';
+import privacyImg from '../assets/privacy.jpg';
 
 export default {
     components: {
         Motivation
-    }
+    },
+    data() {
+        return {
+            images: {
+                apply: {
+                    src: applyImg,
+                    alt: 'Person applying for a job',
+                },
+                hiring: {
+                    src: hiringImg,
+                    alt: 'Hiring manager reviewing applications',
+                },
+                privacy: {
+                    src: privacyImg,
+                    alt: 'Protecting user data and privacy',
+                },
+            },
+        };
+    },
 };
 </script>
 
