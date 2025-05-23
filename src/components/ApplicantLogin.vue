@@ -119,6 +119,7 @@ export default {
                 user.lastName = nameParts.slice(1).join(' ') || '';
                 user.id = applicantByEmail.applicant_id;
                 user.role = 'applicant';
+                user.setLoggedIn(true);
 
                 this.success = 'Login successful!';
                 this.error = null;

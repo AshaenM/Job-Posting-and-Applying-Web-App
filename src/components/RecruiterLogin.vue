@@ -141,6 +141,7 @@ export default {
                     userStore.setName(firstName, lastName);
                     userStore.setRole("recruiter");
                     userStore.setID(this.employeeId);
+                    userStore.setLoggedIn(true);
 
                     this.success = "Login successful!";
                     this.error = null;

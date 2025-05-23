@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', {
     lastName: '',
     role: '',
     id: '',
+    isLoggedIn: false,
   }),
   getters: {
     fullName: (state) => `${state.firstName} ${state.lastName}`.trim(),
@@ -20,6 +21,9 @@ export const useUserStore = defineStore('user', {
     },
     setID(id) {
       this.id = id
+    },
+    setLoggedIn(status) {
+      this.isLoggedIn = status;
     },
     persist: {
       storage: sessionStorage,
