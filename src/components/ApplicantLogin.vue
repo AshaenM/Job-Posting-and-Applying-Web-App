@@ -115,10 +115,9 @@ export default {
 
                 const user = useUserStore();
                 const nameParts = applicantByEmail.name.trim().split(' ');
-                user.firstName = nameParts[0] || '';
-                user.lastName = nameParts.slice(1).join(' ') || '';
-                user.id = applicantByEmail.applicant_id;
-                user.role = 'applicant';
+                user.setName(nameParts[0] || '', nameParts.slice(1).join(' ') || '');
+                user.setID(applicantByEmail.applicant_id);
+                user.setRole('applicant');
                 user.setLoggedIn(true);
 
                 this.success = 'Login successful!';
