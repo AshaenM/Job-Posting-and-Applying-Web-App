@@ -1,168 +1,189 @@
 [
-    {
-        "id": "01",
-        "title": "Software Developer",
-        "company": "Google",
-        "desc": "Develop, test, and maintain software applications for internal business systems.",
-        "rate": 40,
-        "location": "New York, NY",
-        "employmentType": "Full-time",
-        "skills": [
-            "JavaScript",
-            "React",
-            "Node.js"
-        ],
-        "postedDate": "2025-05-14"
-    },
-    {
-        "id": "02",
-        "title": "Backend Engineer",
-        "company": "Google",
-        "desc": "Design and implement APIs and backend services supporting web and mobile platforms.",
-        "rate": 45,
-        "location": "Austin, TX",
-        "employmentType": "Full-time",
-        "skills": [
-            "Python",
-            "Django",
-            "PostgreSQL"
-        ],
-        "postedDate": "2025-05-13"
-    },
-    {
-        "id": "03",
-        "title": "Frontend Developer",
-        "company": "Google",
-        "desc": "Build and maintain responsive web interfaces and collaborate with UI\/UX designers.",
-        "rate": 38,
-        "location": "Remote",
-        "employmentType": "Contract",
-        "skills": [
-            "HTML",
-            "CSS",
-            "Vue.js"
-        ],
-        "postedDate": "2025-05-12"
-    },
-    {
-        "id": "04",
-        "title": "Mobile App Developer",
-        "company": "Google",
-        "desc": "Develop cross-platform mobile applications for consumer-facing products.",
-        "rate": 42,
-        "location": "Los Angeles, CA",
-        "employmentType": "Full-time",
-        "skills": [
-            "React Native",
-            "Flutter",
-            "REST APIs"
-        ],
-        "postedDate": "2025-05-11"
-    },
-    {
-        "id": "05",
-        "title": "DevOps Engineer",
-        "company": "Google",
-        "desc": "Implement CI\/CD pipelines, monitor infrastructure, and automate deployments.",
-        "rate": 50,
-        "location": "Chicago, IL",
-        "employmentType": "Full-time",
-        "skills": [
-            "AWS",
-            "Docker",
-            "Kubernetes",
-            "Terraform"
-        ],
-        "postedDate": "2025-05-10"
-    },
-    {
-        "id": "06",
-        "title": "Game Developer",
-        "company": "PixelPlay Studios",
-        "desc": "Design and develop interactive games using Unity for desktop and mobile platforms.",
-        "rate": 37,
-        "location": "Seattle, WA",
-        "employmentType": "Full-time",
-        "skills": [
-            "Unity",
-            "C#",
-            "Blender"
-        ],
-        "postedDate": "2025-05-10"
-    },
-    {
-        "id": "07",
-        "title": "AI\/ML Engineer",
-        "company": "NeuroNet",
-        "desc": "Develop and train machine learning models for predictive analytics and automation.",
-        "rate": 55,
-        "location": "Boston, MA",
-        "employmentType": "Full-time",
-        "skills": [
-            "Python",
-            "TensorFlow",
-            "Pandas"
-        ],
-        "postedDate": "2025-05-09"
-    },
-    {
-        "id": "08",
-        "title": "Data Analyst",
-        "company": "Google",
-        "desc": "Analyze datasets, generate business reports, and visualize trends using dashboards.",
-        "rate": 35,
-        "location": "Remote",
-        "employmentType": "Part-time",
-        "skills": [
-            "SQL",
-            "Excel",
-            "Power BI"
-        ],
-        "postedDate": "2025-05-09"
-    },
-    {
-        "id": "09",
-        "title": "Cybersecurity Specialist",
-        "company": "FortiSecure",
-        "desc": "Monitor systems for vulnerabilities, respond to threats, and enforce security policies.",
-        "rate": 60,
-        "location": "San Francisco, CA",
-        "employmentType": "Full-time",
-        "skills": [
-            "Network Security",
-            "Penetration Testing",
-            "SIEM"
-        ],
-        "postedDate": "2025-05-08"
-    },
-    {
-        "id": "10",
-        "title": "Technical Support Engineer",
-        "company": "HelpMeTech",
-        "desc": "Assist users with technical issues, troubleshoot hardware\/software, and document fixes.",
-        "rate": 30,
-        "location": "Atlanta, GA",
-        "employmentType": "Part-time",
-        "skills": [
-            "Windows OS",
-            "Networking",
-            "Customer Service"
-        ],
-        "postedDate": "2025-05-08"
-    },
-    {
-        "id": "11",
-        "title": "DevSecOps Enginner",
-        "company": "Cleanup",
-        "desc": "Use DevSecOps principles to write code",
-        "rate": 45,
-        "location": "Seattle ",
-        "employmentType": "Full-Time",
-        "skills": [
-            "Java",
-            "C#",
-            "Python"
-        ],
-        "postedDate": "2025-05-21"
-    }
+  {
+    "id": "1",
+    "title": "Software Developer",
+    "company": "Google",
+    "desc": "Develop, test, and maintain software applications for internal business systems.",
+    "rate": 40,
+    "location": "New York, NY",
+    "employmentType": "Full-time",
+    "skills": ["JavaScript", "React", "Node.js"],
+    "postedDate": "2025-05-14"
+  },
+  {
+    "id": "2",
+    "title": "Backend Engineer",
+    "company": "Google",
+    "desc": "Design and implement APIs and backend services supporting web and mobile platforms.",
+    "rate": 45,
+    "location": "Austin, TX",
+    "employmentType": "Full-time",
+    "skills": ["Python", "Django", "PostgreSQL"],
+    "postedDate": "2025-05-13"
+  },
+  {
+    "id": "3",
+    "title": "Frontend Developer",
+    "company": "Google",
+    "desc": "Build and maintain responsive web interfaces and collaborate with UI/UX designers.",
+    "rate": 38,
+    "location": "Remote",
+    "employmentType": "Contract",
+    "skills": ["HTML", "CSS", "Vue.js"],
+    "postedDate": "2025-05-12"
+  },
+  {
+    "id": "4",
+    "title": "Mobile App Developer",
+    "company": "Google",
+    "desc": "Develop cross-platform mobile applications for consumer-facing products.",
+    "rate": 42,
+    "location": "Los Angeles, CA",
+    "employmentType": "Full-time",
+    "skills": ["React Native", "Flutter", "REST APIs"],
+    "postedDate": "2025-05-11"
+  },
+  {
+    "id": "5",
+    "title": "DevOps Engineer",
+    "company": "Google",
+    "desc": "Implement CI/CD pipelines, monitor infrastructure, and automate deployments.",
+    "rate": 50,
+    "location": "Chicago, IL",
+    "employmentType": "Full-time",
+    "skills": ["AWS", "Docker", "Kubernetes", "Terraform"],
+    "postedDate": "2025-05-10"
+  },
+  {
+    "id": "6",
+    "title": "Data Analyst",
+    "company": "Google",
+    "desc": "Analyze datasets, generate business reports, and visualize trends using dashboards.",
+    "rate": 35,
+    "location": "Remote",
+    "employmentType": "Part-time",
+    "skills": ["SQL", "Excel", "Power BI"],
+    "postedDate": "2025-05-09"
+  },
+  {
+    "id": "7",
+    "title": "Quality Assurance Engineer",
+    "company": "Google",
+    "desc": "Develop test plans, automate testing, and ensure software quality.",
+    "rate": 37,
+    "location": "Mountain View, CA",
+    "employmentType": "Full-time",
+    "skills": ["Selenium", "Java", "Jenkins"],
+    "postedDate": "2025-05-18"
+  },
+  {
+    "id": "8",
+    "title": "Cloud Engineer",
+    "company": "Google",
+    "desc": "Maintain and optimize cloud infrastructure and services.",
+    "rate": 52,
+    "location": "New York, NY",
+    "employmentType": "Full-time",
+    "skills": ["GCP", "Terraform", "Python"],
+    "postedDate": "2025-05-16"
+  },
+  {
+    "id": "9",
+    "title": "Product Manager",
+    "company": "Google",
+    "desc": "Lead product development teams and define roadmaps.",
+    "rate": 60,
+    "location": "San Francisco, CA",
+    "employmentType": "Full-time",
+    "skills": ["Agile", "Scrum", "Communication"],
+    "postedDate": "2025-05-17"
+  },
+  {
+    "id": "10",
+    "title": "Security Engineer",
+    "company": "Google",
+    "desc": "Design security architectures and conduct threat assessments.",
+    "rate": 58,
+    "location": "Seattle, WA",
+    "employmentType": "Full-time",
+    "skills": ["Network Security", "Cryptography", "Penetration Testing"],
+    "postedDate": "2025-05-15"
+  },
+  {
+    "id": "11",
+    "title": "Technical Writer",
+    "company": "Google",
+    "desc": "Create and maintain technical documentation for software products.",
+    "rate": 32,
+    "location": "Remote",
+    "employmentType": "Part-time",
+    "skills": ["Writing", "Markdown", "API Documentation"],
+    "postedDate": "2025-05-14"
+  },
+  {
+    "id": "12",
+    "title": "UX Designer",
+    "company": "Google",
+    "desc": "Design user interfaces and improve user experience.",
+    "rate": 40,
+    "location": "Mountain View, CA",
+    "employmentType": "Full-time",
+    "skills": ["Figma", "Adobe XD", "User Research"],
+    "postedDate": "2025-05-13"
+  },
+  {
+    "id": "13",
+    "title": "Site Reliability Engineer",
+    "company": "Google",
+    "desc": "Ensure uptime and reliability of production systems.",
+    "rate": 55,
+    "location": "Austin, TX",
+    "employmentType": "Full-time",
+    "skills": ["Kubernetes", "Monitoring", "Go"],
+    "postedDate": "2025-05-12"
+  },
+  {
+    "id": "14",
+    "title": "Business Analyst",
+    "company": "Google",
+    "desc": "Gather business requirements and support project delivery.",
+    "rate": 38,
+    "location": "New York, NY",
+    "employmentType": "Full-time",
+    "skills": ["Data Analysis", "Excel", "Communication"],
+    "postedDate": "2025-05-11"
+  },
+  {
+    "id": "15",
+    "title": "Game Developer",
+    "company": "PixelPlay Studios",
+    "desc": "Design and develop interactive games using Unity for desktop and mobile platforms.",
+    "rate": 37,
+    "location": "Seattle, WA",
+    "employmentType": "Full-time",
+    "skills": ["Unity", "C#", "Blender"],
+    "postedDate": "2025-05-10"
+  },
+  {
+    "id": "16",
+    "title": "AI/ML Engineer",
+    "company": "NeuroNet",
+    "desc": "Develop and train machine learning models for predictive analytics and automation.",
+    "rate": 55,
+    "location": "Boston, MA",
+    "employmentType": "Full-time",
+    "skills": ["Python", "TensorFlow", "Pandas"],
+    "postedDate": "2025-05-09"
+  },
+  {
+    "id": "17",
+    "title": "Cybersecurity Specialist",
+    "company": "FortiSecure",
+    "desc": "Monitor systems for vulnerabilities, respond to threats, and enforce security policies.",
+    "rate": 60,
+    "location": "San Francisco, CA",
+    "employmentType": "Full-time",
+    "skills": ["Network Security", "Penetration Testing", "SIEM"],
+    "postedDate": "2025-05-08"
+  }
 ]
