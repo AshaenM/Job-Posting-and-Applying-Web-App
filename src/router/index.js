@@ -41,21 +41,35 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore();
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
 
-  if (to.meta.requiresAuth) {
-    if (!userStore.isLoggedIn) {
-      if (to.meta.role === 'recruiter') return next('/recruiter-login');
-      if (to.meta.role === 'applicant') return next('/applicant-login');
-      return next('/');
+  try {
+    // Wait for the store to be hydrated if using persistence
+    if (userStore.$hydrate) {
+      await userStore.$hydrate()
     }
-    if (to.meta.role && to.meta.role !== userStore.role) {
-      return next('/');
+
+    if (to.meta.requiresAuth) {
+      if (!userStore.isLoggedIn) {
+        if (to.meta.role === 'recruiter') return next('/recruiter-login')
+        if (to.meta.role === 'applicant') return next('/applicant-login')
+        return next('/')
+      }
+      if (to.meta.role && to.meta.role !== userStore.role) {
+        return next('/')
+      }
     }
+    next()
+  } catch (error) {
+    console.error('Error during navigation guard:', error)
+    // Fallback behavior if hydration fails
+    if (to.meta.requiresAuth) {
+      return next('/')
+    }
+    next()
   }
-  next();
-});
+})
 
 
 export default router

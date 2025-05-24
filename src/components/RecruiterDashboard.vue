@@ -28,7 +28,7 @@ const router = useRouter()
 const fullName = computed(() => `${user.firstName} ${user.lastName}`.trim())
 
 function logout() {
-  user.$reset()
+  user.reset()
   router.replace('/recruiter-login')
 }
 </script>

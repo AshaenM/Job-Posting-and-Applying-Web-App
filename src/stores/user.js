@@ -23,10 +23,24 @@ export const useUserStore = defineStore('user', {
       this.id = id
     },
     setLoggedIn(status) {
-      this.isLoggedIn = status;
+      this.isLoggedIn = status
     },
-    persist: {
-      storage: sessionStorage,
+    // reset action that properly clears persisted data
+    reset() {
+      this.$reset()
+      // Clear the persisted state from storage
+      sessionStorage.removeItem('user')
     }
   },
+  persist: {
+    storage: sessionStorage,
+    key: 'user',
+    paths: ['firstName', 'lastName', 'role', 'id', 'isLoggedIn'],
+    beforeRestore: (ctx) => {
+      console.log('About to restore user state', ctx)
+    },
+    afterRestore: (ctx) => {
+      console.log('User state restored', ctx)
+    }
+  }
 })
