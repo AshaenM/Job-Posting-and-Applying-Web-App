@@ -46,6 +46,10 @@ export default {
     }
   },
   async created() {
+    this.userStore = useUserStore();
+    if (this.userStore.firstName || this.userStore.lastName) {
+      this.name = `${this.userStore.firstName} ${this.userStore.lastName}`.trim();
+    }
     try {
       const response = await fetch('./read.php?file=jobs');
       if (!response.ok) throw new Error('Failed to load jobs data');
