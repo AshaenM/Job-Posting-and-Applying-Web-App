@@ -54,6 +54,7 @@
 <script setup>
 import { reactive, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { readData, writeData } from '../github.js'
 
 const router = useRouter()
 
@@ -81,7 +82,6 @@ const skillOptions = [
 ]
 
 const isFormValid = computed(() => {
-    // Check required fields are filled
     return (
         job.title.trim() !== '' &&
         job.company.trim() !== '' &&
@@ -93,8 +93,9 @@ const isFormValid = computed(() => {
     )
 })
 
-const submitForm = () => {
+const submitForm = async () => {
     const jobData = {
+        id: 'JOB' + Date.now(),
         title: job.title,
         company: job.company,
         desc: job.description,
@@ -105,27 +106,18 @@ const submitForm = () => {
         postedDate: new Date().toISOString().split('T')[0]
     }
 
-    fetch('https://ashaenmanuel.infinityfreeapp.com/postJob.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jobData)
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Network error')
-            return response.json()
-        })
-        .then(() => {
-            alert('Job posted successfully!')
-            router.push('/manage-jobs')
-        })
-        .catch(error => {
-            console.error('Submission failed:', error)
-            alert('Failed to post job.')
-        })
+    try {
+        const { content: jobs, sha } = await readData('jobs')
+        const updated = [...jobs, jobData]
+        await writeData('jobs', updated, sha)
 
-    // Reset form
+        alert('Job posted successfully!')
+        router.push('/manage-jobs')
+    } catch (error) {
+        console.error('Submission failed:', error)
+        alert('Failed to post job.')
+    }
+
     job.title = ''
     job.company = ''
     job.location = ''

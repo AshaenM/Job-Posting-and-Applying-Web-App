@@ -37,6 +37,7 @@
 
 <script>
 import { useUserStore } from "../stores/user";
+import { readData } from '../github.js';
 
 export default {
     data() {
@@ -47,27 +48,22 @@ export default {
         };
     },
     methods: {
-        // Fetches applications and corresponding jobs for the logged-in user
         async fetchApplicationsAndJobs() {
             try {
                 const userStore = useUserStore();
                 const userID = userStore.id;
 
-                // Fetch all data from server
-                const appsRes = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applications');
-                if (!appsRes.ok) throw new Error("Failed to fetch applications");
-                const allApplications = await appsRes.json();
+                const [{ content: allApplications }, { content: jobs }] = await Promise.all([
+                    readData('applications'),
+                    readData('jobs'),
+                ]);
 
-                const jobsRes = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
-                if (!jobsRes.ok) throw new Error("Failed to fetch jobs");
-                this.jobs = await jobsRes.json();
+                this.jobs = jobs;
 
-                // Filter applications to only include those that belong to the current user
                 const userApplications = allApplications.filter(
                     (app) => app.applicantId === userID
                 );
 
-                // Map user applications to include job details (company and title)
                 this.applications = userApplications.map((app) => {
                     const job = this.jobs.find((j) => j.id === app.jobId);
                     return {
@@ -83,37 +79,25 @@ export default {
                 this.loading = false;
             }
         },
-
         formatDate(dateString) {
             const options = { year: "numeric", month: "long", day: "numeric" };
             return new Date(dateString).toLocaleDateString(undefined, options);
         },
-
-        // Return Bootstrap badge class based on application status string
         statusBadgeClass(status) {
             switch (status.toLowerCase()) {
-                case 'accepted':
-                    return 'bg-success';
-                case 'rejected':
-                    return 'bg-danger';
-                case 'pending review':
-                default:
-                    return 'bg-secondary';
+                case 'accepted': return 'bg-success';
+                case 'rejected': return 'bg-danger';
+                default: return 'bg-secondary';
             }
         },
         statusIcon(status) {
             switch (status.toLowerCase()) {
-                case 'accepted':
-                    return 'bi bi-check-circle-fill';
-                case 'rejected':
-                    return 'bi bi-x-circle-fill';
-                case 'pending review':
-                default:
-                    return 'bi bi-hourglass-split';
+                case 'accepted': return 'bi bi-check-circle-fill';
+                case 'rejected': return 'bi bi-x-circle-fill';
+                default: return 'bi bi-hourglass-split';
             }
         }
     },
-    // Lifecycle hook that calls fetchApplicationsAndJobs when component is mounted
     mounted() {
         this.fetchApplicationsAndJobs();
     },

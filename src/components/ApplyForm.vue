@@ -27,6 +27,7 @@
 
 <script>
 import { useUserStore } from '../stores/user'
+import { readData, writeData } from '../github.js';
 
 export default {
   data() {
@@ -51,47 +52,41 @@ export default {
       this.name = `${this.userStore.firstName} ${this.userStore.lastName}`.trim();
     }
     try {
-      const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
-      if (!response.ok) throw new Error('Failed to load jobs data');
-      this.jobs = await response.json();
+      const { content } = await readData('jobs');
+      this.jobs = content;
     } catch (err) {
       this.errorLoadingJobs = err.message;
     } finally {
       this.loadingJobs = false;
     }
   },
-
   methods: {
-    submitApplication() {
+    async submitApplication() {
       const userStore = useUserStore();
 
-      const application = {
-        applicantId: userStore.id,
-        jobId: this.job.id,
-        name: this.name,
-        email: this.email,
-        resume: this.resume,
-      };
+      try {
+        const { content: applications, sha } = await readData('applications');
 
-      fetch('https://ashaenmanuel.infinityfreeapp.com/apply.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(application),
-      })
-        .then(response => {
-          if (!response.ok) throw new Error('Network error');
-          return response.json();
-        })
-        .then(data => {
-          alert('Application submitted successfully!');
-          this.$router.push('/applications');
-        })
-        .catch(error => {
-          console.error('Submission failed:', error);
-          alert('Failed to submit application.');
-        });
+        const newApplication = {
+          id: 'APP' + Date.now(),
+          applicantId: userStore.id,
+          jobId: this.job.id,
+          name: this.name,
+          email: this.email,
+          resume: this.resume,
+          status: 'pending',
+        };
+
+        const updated = [...applications, newApplication];
+        await writeData('applications', updated, sha);
+
+        alert('Application submitted successfully!');
+        this.$router.push('/applications');
+
+      } catch (error) {
+        console.error('Submission failed:', error);
+        alert('Failed to submit application.');
+      }
     },
     goBack() {
       this.$router.go(-1);

@@ -61,6 +61,7 @@
 
 <script>
 import { useUserStore } from '../stores/user';
+import { readData, writeData } from '../github.js';
 
 export default {
   data() {
@@ -75,9 +76,8 @@ export default {
   },
   async created() {
     try {
-      const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
-      if (!response.ok) throw new Error('Failed to load jobs data');
-      this.jobs = await response.json();
+      const { content } = await readData('jobs');
+      this.jobs = content;
     } catch (err) {
       this.error = err.message;
     } finally {
@@ -87,7 +87,6 @@ export default {
   computed: {
     filteredJobs() {
       if (!this.searchQuery) return this.jobs;
-
       const query = this.searchQuery.toLowerCase();
       return this.jobs.filter(job =>
         job.title.toLowerCase().includes(query) ||
@@ -96,11 +95,9 @@ export default {
         job.location.toLowerCase().includes(query)
       );
     },
-    //Calculates the total number of pages required when only 5 jobs are let per page
     totalPages() {
       return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
     },
-    // Returns the jobs per page
     paginatedJobs() {
       const start = (this.currentPage - 1) * this.jobsPerPage;
       return this.filteredJobs.slice(start, start + this.jobsPerPage);
@@ -118,18 +115,19 @@ export default {
     async saveJob(jobId) {
       const userStore = useUserStore();
       const applicantId = userStore.id;
-      const data = { job_id: jobId, applicant_id: applicantId };
 
       try {
-        const res = await fetch('https://ashaenmanuel.infinityfreeapp.com/save_shortlist.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-
-        const result = await res.json();
-
-        if (!res.ok) throw new Error(result.error || 'Failed to save job');
+        const { content: shortlists, sha } = await readData('shortlists');
+        const alreadySaved = shortlists.some(
+          s => s.job_id === jobId && s.applicant_id === applicantId
+        );
+        if (alreadySaved) {
+          alert('Job already saved to shortlist!');
+          return;
+        }
+        const newEntry = { job_id: jobId, applicant_id: applicantId };
+        const updated = [...shortlists, newEntry];
+        await writeData('shortlists', updated, sha);
         alert('Job saved to shortlist!');
       } catch (err) {
         console.error(err);

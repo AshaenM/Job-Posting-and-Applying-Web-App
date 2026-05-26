@@ -43,6 +43,7 @@
 
 <script>
 import { useUserStore } from "../stores/user"
+import { readData, writeData } from '../github.js';
 
 export default {
   data() {
@@ -111,7 +112,6 @@ export default {
       } else {
         this.passwordError = null;
       }
-
       this.validateConfirmPassword();
     },
     validateConfirmPassword() {
@@ -123,7 +123,7 @@ export default {
         this.confirmPasswordError = null;
       }
     },
-    handleSignUp() {
+    async handleSignUp() {
       this.validateName();
       this.validateEmail();
       this.validatePassword();
@@ -134,41 +134,41 @@ export default {
         return;
       }
 
-      this.userStore.setRole("applicant");
-      this.userStore.setLoggedIn(true);
+      try {
+        const { content: applicants, sha } = await readData('applicants');
 
-      const applicantData = {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      };
+        const emailExists = applicants.some(a => a.email === this.email);
+        if (emailExists) {
+          alert('An account with this email already exists.');
+          return;
+        }
 
-      fetch('https://ashaenmanuel.infinityfreeapp.com/applicantSignUp.php', {
-        method: 'POST', // Use POST method to send data securely to the server
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(applicantData), // Convert the applicant data object to JSON string
-      })
-        .then(async response => {
-          const data = await response.json();
-          if (!response.ok) {
-            throw new Error(data.error || 'Unknown error');
-          }
-          return data;
-        })
-        .then(data => {
-          if (data.applicant_id) {
-            this.userStore.setID(data.applicant_id);
-          }
-          alert('Applicant successfully added!');
-          this.name = this.email = this.password = this.confirmPassword = '';
-          this.$router.push('/applicant-dashboard');
-        })
-        .catch(error => {
-          console.error('Submission failed:', error.message);
-          alert(error.message);
-        });
+        const newId = 'A' + Date.now();
+        const newApplicant = {
+          applicant_id: newId,
+          name: this.name,
+          email: this.email,
+          password: this.password,
+        };
+
+        const updated = [...applicants, newApplicant];
+        await writeData('applicants', updated, sha);
+
+        this.userStore.setRole("applicant");
+        this.userStore.setLoggedIn(true);
+        this.userStore.setID(newId);
+
+        const nameParts = this.name.trim().split(' ');
+        this.userStore.setName(nameParts[0] || '', nameParts.slice(1).join(' ') || '');
+
+        alert('Applicant successfully added!');
+        this.name = this.email = this.password = this.confirmPassword = '';
+        this.$router.push('/applicant-dashboard');
+
+      } catch (error) {
+        console.error('Submission failed:', error.message);
+        alert(error.message);
+      }
     },
   },
 };

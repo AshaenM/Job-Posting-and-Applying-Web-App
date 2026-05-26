@@ -38,6 +38,7 @@
 
 <script>
 import { useUserStore } from '../stores/user';
+import { readData } from '../github.js';
 
 export default {
     data() {
@@ -55,21 +56,11 @@ export default {
         this.applicantId = userStore.id;
 
         try {
-            // Fetch shortlisted jobs and all jobs simultaneously
-            const [shortlistRes, jobsRes] = await Promise.all([
-                fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=shortlists'),
-                fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
+            const [{ content: shortlists }, { content: jobs }] = await Promise.all([
+                readData('shortlists'),
+                readData('jobs'),
             ]);
 
-            // Check if both requests were successful
-            if (!shortlistRes.ok || !jobsRes.ok)
-                throw new Error("Failed to load data");
-
-            // Parse the responses as JSON
-            const shortlists = await shortlistRes.json();
-            const jobs = await jobsRes.json();
-
-            // Filter shortlist entries that belong to the current applicant and map to an array of job IDs that are shortlisted by this applicant
             this.shortlistedIds = shortlists
                 .filter((item) => item.applicant_id === this.applicantId)
                 .map((item) => item.job_id);

@@ -65,6 +65,7 @@
 <script>
 import { useUserStore } from '../stores/user';
 import { mapState } from 'pinia';
+import { readData, writeData } from '../github.js';
 
 export default {
   name: 'ViewApplications',
@@ -101,7 +102,6 @@ export default {
   methods: {
     goToJobDetail(id) {
       this.selectedJobId = id;
-
       this.$nextTick(() => {
         const target = this.$refs.applicationsSection;
         if (target && target.scrollIntoView) {
@@ -111,30 +111,28 @@ export default {
     },
     async fetchData() {
       try {
-        const [appsRes, jobsRes, recsRes] = await Promise.all([
-          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applications'),
-          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
-          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters')
+        const [{ content: applications }, { content: jobs }, { content: recruiters }] = await Promise.all([
+          readData('applications'),
+          readData('jobs'),
+          readData('recruiters'),
         ]);
-
-        this.applications = await appsRes.json();
-        this.jobs = await jobsRes.json();
-        this.recruiters = await recsRes.json();
+        this.applications = applications;
+        this.jobs = jobs;
+        this.recruiters = recruiters;
       } catch (error) {
         console.error('Error loading data:', error);
       }
     },
     async updateStatus(applicationId, newStatus) {
       try {
-        const res = await fetch(`https://ashaenmanuel.infinityfreeapp.com/update_application_status.php?id=${applicationId}&status=${newStatus}`);
-        if (!res.ok) throw new Error('Failed to update status');
-
-        const result = await res.json();
-        alert(result.message);
-
-        // Update local data
-        const app = this.applications.find(a => a.applicationId === applicationId);
+        const { content: applications, sha } = await readData('applications');
+        const updated = applications.map(a =>
+          a.id === applicationId ? { ...a, status: newStatus } : a
+        );
+        await writeData('applications', updated, sha);
+        const app = this.applications.find(a => a.id === applicationId);
         if (app) app.status = newStatus;
+        alert('Status updated successfully.');
       } catch (error) {
         console.error(error);
         alert('Error updating status.');
@@ -142,15 +140,12 @@ export default {
     },
     async deleteApplication(applicationId) {
       if (!confirm('Are you sure you want to delete this application?')) return;
-
       try {
-        const res = await fetch(`https://ashaenmanuel.infinityfreeapp.com/delete_application.php?id=${applicationId}`);
-        if (!res.ok) throw new Error('Failed to delete');
-
-        const result = await res.json();
-        console.log(result.message);
-        alert(result.message);
-        this.applications = this.applications.filter(app => app.applicationId !== applicationId);
+        const { content: applications, sha } = await readData('applications');
+        const updated = applications.filter(a => a.id !== applicationId);
+        await writeData('applications', updated, sha);
+        this.applications = this.applications.filter(a => a.id !== applicationId);
+        alert('Application deleted successfully.');
       } catch (error) {
         console.error(error);
         alert('Error deleting application.');

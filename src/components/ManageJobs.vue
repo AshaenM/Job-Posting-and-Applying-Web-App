@@ -69,6 +69,7 @@
 <script>
 import { useUserStore } from '../stores/user';
 import { mapState } from 'pinia';
+import { readData, writeData } from '../github.js';
 
 export default {
     name: 'ManageJobs',
@@ -81,10 +82,7 @@ export default {
         };
     },
     computed: {
-        // Map the 'id' state from the user store into this component
         ...mapState(useUserStore, ['id']),
-
-        // Find the company of the recruiter based on the current user's id
         recruiterCompany() {
             const recruiter = this.recruiters.find(r => r.employeeId === this.id);
             return recruiter ? recruiter.company : '';
@@ -94,7 +92,6 @@ export default {
         },
         filteredJobs() {
             if (!this.searchQuery) return this.myJobs;
-
             const query = this.searchQuery.toLowerCase();
             return this.myJobs.filter(job =>
                 Object.values(job).some(value =>
@@ -106,60 +103,45 @@ export default {
     methods: {
         async fetchJobs() {
             try {
-                const [jobsRes, recsRes] = await Promise.all([
-                    fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
-                    fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters'),
+                const [{ content: jobs }, { content: recruiters }] = await Promise.all([
+                    readData('jobs'),
+                    readData('recruiters'),
                 ]);
-
-                this.jobs = await jobsRes.json();
-                this.recruiters = await recsRes.json();
+                this.jobs = jobs;
+                this.recruiters = recruiters;
             } catch (error) {
                 console.error('Error loading job data:', error);
             }
         },
-        deleteJob(id) {
+        async deleteJob(id) {
             if (!confirm('Are you sure you want to delete this job?')) return;
-
-            fetch(`https://ashaenmanuel.infinityfreeapp.com/delete_job.php?id=${id}`)
-                .then(res => {
-                    if (!res.ok) throw new Error('Failed to delete');
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data.message);
-                    alert('Job successfully deleted.');
-                    this.jobs = this.jobs.filter(job => job.id !== id);
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Failed to delete job.');
-                });
+            try {
+                const { content: jobs, sha } = await readData('jobs');
+                const updated = jobs.filter(job => job.id !== id);
+                await writeData('jobs', updated, sha);
+                this.jobs = this.jobs.filter(job => job.id !== id);
+                alert('Job successfully deleted.');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to delete job.');
+            }
         },
         editJob(job) {
-            // Clone the object to prevent immediate binding
             this.editingJob = { ...job };
         },
-        saveEdit() {
-            fetch('https://ashaenmanuel.infinityfreeapp.com/edit_job.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(this.editingJob),
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error('Failed to update');
-                    return res.json();
-                })
-                .then(data => {
-                    console.log(data.message);
-                    alert('Changes successfully saved');
-                    const index = this.jobs.findIndex(j => j.id === this.editingJob.id);
-                    if (index !== -1) this.jobs[index] = { ...this.editingJob };
-                    this.editingJob = null;
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert('Failed to save job changes.');
-                });
+        async saveEdit() {
+            try {
+                const { content: jobs, sha } = await readData('jobs');
+                const updated = jobs.map(j => j.id === this.editingJob.id ? { ...this.editingJob } : j);
+                await writeData('jobs', updated, sha);
+                const index = this.jobs.findIndex(j => j.id === this.editingJob.id);
+                if (index !== -1) this.jobs[index] = { ...this.editingJob };
+                this.editingJob = null;
+                alert('Changes successfully saved.');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to save job changes.');
+            }
         },
     },
     mounted() {

@@ -19,30 +19,31 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        jobsData: [],
-        loading: true,
-        error: null,
-      };
-    },
-    async created() {
-      try {
-        const res = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
-        if (!res.ok) throw new Error('Failed to load jobs data');
-        this.jobsData = await res.json();
-      } catch (err) {
-        this.error = err.message;
-      } finally {
-        this.loading = false;
-      }
-    },
-    computed: {
-      job() {
-        const jobId = this.$route.params.id;
-        return this.jobsData.find(job => job.id === jobId);
-      }
+import { readData } from '../github.js';
+
+export default {
+  data() {
+    return {
+      jobsData: [],
+      loading: true,
+      error: null,
+    };
+  },
+  async created() {
+    try {
+      const { content } = await readData('jobs');
+      this.jobsData = content;
+    } catch (err) {
+      this.error = err.message;
+    } finally {
+      this.loading = false;
     }
-  };
+  },
+  computed: {
+    job() {
+      const jobId = this.$route.params.id;
+      return this.jobsData.find(job => job.id === jobId);
+    }
+  }
+};
 </script>

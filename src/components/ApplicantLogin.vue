@@ -33,6 +33,7 @@
 
 <script>
 import { useUserStore } from '../stores/user'
+import { readData } from '../github.js';
 
 export default {
     data() {
@@ -46,7 +47,6 @@ export default {
         };
     },
     computed: {
-        // Checks if both the email and password are entered
         formIsValid() {
             return !this.emailError && !this.passwordError && this.email && this.password;
         },
@@ -80,41 +80,31 @@ export default {
             }
 
             try {
-                const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applicants');
-                if (!response.ok) {
-                    throw new Error('Failed to load applicants data.');
-                }
-
-                const applicants = await response.json();
+                const { content: applicants } = await readData('applicants');
 
                 const trimmedEmail = this.email.trim();
                 const trimmedPassword = this.password.trim();
 
-                // Find applicant by email only
                 const applicantByEmail = applicants.find(app => app.email === trimmedEmail);
 
                 if (!applicantByEmail) {
-                    // Email not found, suggest registering
                     this.error = 'Account not found, please register.';
                     this.success = null;
                     return;
                 }
 
-                // Email exists, now check password match
                 if (applicantByEmail.password !== trimmedPassword) {
                     this.error = 'Incorrect password.';
                     this.success = null;
                     return;
                 }
 
-                // Both email and password match
                 if (!applicantByEmail.applicant_id) {
                     this.error = 'Account data incomplete, please contact support.';
                     this.success = null;
                     return;
                 }
 
-                // Assign user fields for state managment
                 const user = useUserStore();
                 const nameParts = applicantByEmail.name.trim().split(' ');
                 user.setName(nameParts[0] || '', nameParts.slice(1).join(' ') || '');
@@ -141,7 +131,6 @@ export default {
         }
     }
 };
-
 </script>
 
 <style scoped>
