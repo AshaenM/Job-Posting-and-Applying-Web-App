@@ -43,81 +43,126 @@
 </template>
 
 <script>
-import { useUserStore } from '../stores/user';
-import { readData, writeData } from '../github.js';
+import { useUserStore } from '../stores/user'
+import { readData } from '../github.js';
 
 export default {
-  data() {
-    return {
-      jobs: [],
-      currentPage: 1,
-      jobsPerPage: 5,
-      searchQuery: '',
-      loading: true,
-      error: null,
-    };
-  },
-  async created() {
-    try {
-      const { content } = await readData('jobs');
-      this.jobs = content;
-    } catch (err) {
-      this.error = err.message;
-    } finally {
-      this.loading = false;
-    }
-  },
-  computed: {
-    filteredJobs() {
-      if (!this.searchQuery) return this.jobs;
-      const query = this.searchQuery.toLowerCase();
-      return this.jobs.filter(job =>
-        job.title.toLowerCase().includes(query) ||
-        job.company.toLowerCase().includes(query) ||
-        job.employmentType.toLowerCase().includes(query) ||
-        job.location.toLowerCase().includes(query)
-      );
+    data() {
+        return {
+            companies: [],
+            selectedCompany: "",
+            employeeId: "",
+            password: "",
+            companyError: null,
+            employeeIdError: null,
+            passwordError: null,
+            error: null,
+            success: null,
+        };
     },
-    totalPages() {
-      return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
+    computed: {
+        formIsValid() {
+            return (
+                !this.companyError &&
+                !this.employeeIdError &&
+                !this.passwordError &&
+                this.selectedCompany &&
+                this.employeeId &&
+                this.password
+            );
+        },
     },
-    paginatedJobs() {
-      const start = (this.currentPage - 1) * this.jobsPerPage;
-      return this.filteredJobs.slice(start, start + this.jobsPerPage);
-    },
-  },
-  watch: {
-    searchQuery() {
-      this.currentPage = 1;
-    }
-  },
-  methods: {
-    goToJobDetail(id) {
-      this.$router.push({ name: 'JobDetails', params: { id } });
-    },
-    async saveJob(jobId) {
-      const userStore = useUserStore();
-      const applicantId = userStore.id;
+    methods: {
+        goBack() {
+            this.$router.go(-1);
+        },
+        validateCompany() {
+            this.companyError = this.selectedCompany ? null : "Company is required.";
+        },
+        validateEmployeeId() {
+            if (!this.employeeId) {
+                this.employeeIdError = "Employee ID is required.";
+            } else if (!/^[0-9]+$/.test(this.employeeId)) {
+                this.employeeIdError = "Employee ID must be a number.";
+            } else {
+                this.employeeIdError = null;
+            }
+        },
+        validatePassword() {
+            this.passwordError = this.password ? null : "Password is required.";
+        },
+        async fetchCompanies() {
+            try {
+                const { content: recruiters } = await readData('recruiters');
+                console.log('recruiters:', recruiters);
+                this.companies = [...new Set(recruiters.map(r => r.company))];
+            } catch (err) {
+                console.error("Error loading companies:", err);
+                this.error = "Could not load companies.";
+            }
+        },
+        async handleLogin() {
+            this.validateCompany();
+            this.validateEmployeeId();
+            this.validatePassword();
 
-      try {
-        const { content: shortlists, sha } = await readData('shortlists');
-        const alreadySaved = shortlists.some(
-          s => s.job_id === jobId && s.applicant_id === applicantId
-        );
-        if (alreadySaved) {
-          alert('Job already saved to shortlist!');
-          return;
+            if (!this.formIsValid) {
+                this.error = "Please fix the errors above before submitting.";
+                this.success = null;
+                return;
+            }
+
+            try {
+                const { content: recruiters } = await readData('recruiters');
+
+                const employee = recruiters.find(
+                    recruiter => recruiter.employeeId === this.employeeId
+                );
+
+                const isValidLogin = recruiters.find(
+                    recruiter =>
+                        recruiter.company === this.selectedCompany &&
+                        recruiter.employeeId === this.employeeId &&
+                        recruiter.password === this.password
+                );
+
+                if (isValidLogin) {
+                    const nameParts = isValidLogin.name.trim().split(" ");
+                    const firstName = nameParts[0] || '';
+                    const lastName = nameParts.slice(1).join(" ") || '';
+
+                    const userStore = useUserStore();
+                    userStore.setName(firstName, lastName);
+                    userStore.setRole("recruiter");
+                    userStore.setID(this.employeeId);
+                    userStore.setLoggedIn(true);
+
+                    this.success = "Login successful!";
+                    this.error = null;
+
+                    this.$router.push('/recruiter-dashboard');
+                } else if (!employee) {
+                    this.error = "Employee ID not found.";
+                    this.success = null;
+                } else {
+                    this.error = "Invalid login credentials.";
+                    this.success = null;
+                }
+
+            } catch (err) {
+                console.error(err);
+                this.error = "An error occurred while logging in.";
+                this.success = null;
+            }
+
+            this.selectedCompany = "";
+            this.employeeId = "";
+            this.password = "";
         }
-        const newEntry = { job_id: jobId, applicant_id: applicantId };
-        const updated = [...shortlists, newEntry];
-        await writeData('shortlists', updated, sha);
-        alert('Job saved to shortlist!');
-      } catch (err) {
-        console.error(err);
-        alert('Could not save job.');
-      }
+    },
+    mounted() {
+        this.fetchCompanies();
     }
-  }
 };
 </script>
 
