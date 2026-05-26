@@ -51,7 +51,7 @@ export default {
       this.name = `${this.userStore.firstName} ${this.userStore.lastName}`.trim();
     }
     try {
-      const response = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
+      const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
       if (!response.ok) throw new Error('Failed to load jobs data');
       this.jobs = await response.json();
     } catch (err) {
@@ -73,7 +73,7 @@ export default {
         resume: this.resume,
       };
 
-      fetch('http://ashaenmanuel.infinityfreeapp.com/apply.php', {
+      fetch('https://ashaenmanuel.infinityfreeapp.com/apply.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

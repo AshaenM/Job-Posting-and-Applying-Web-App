@@ -75,7 +75,7 @@ export default {
   },
   async created() {
     try {
-      const response = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
+      const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
       if (!response.ok) throw new Error('Failed to load jobs data');
       this.jobs = await response.json();
     } catch (err) {
@@ -121,7 +121,7 @@ export default {
       const data = { job_id: jobId, applicant_id: applicantId };
 
       try {
-        const res = await fetch('http://ashaenmanuel.infinityfreeapp.com/save_shortlist.php', {
+        const res = await fetch('https://ashaenmanuel.infinityfreeapp.com/save_shortlist.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),

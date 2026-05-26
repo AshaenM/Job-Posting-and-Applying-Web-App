@@ -54,11 +54,11 @@ export default {
                 const userID = userStore.id;
 
                 // Fetch all data from server
-                const appsRes = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=applications');
+                const appsRes = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applications');
                 if (!appsRes.ok) throw new Error("Failed to fetch applications");
                 const allApplications = await appsRes.json();
 
-                const jobsRes = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
+                const jobsRes = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
                 if (!jobsRes.ok) throw new Error("Failed to fetch jobs");
                 this.jobs = await jobsRes.json();
 

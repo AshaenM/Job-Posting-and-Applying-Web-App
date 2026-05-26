@@ -143,7 +143,7 @@ export default {
         password: this.password,
       };
 
-      fetch('http://ashaenmanuel.infinityfreeapp.com/applicantSignUp.php', {
+      fetch('https://ashaenmanuel.infinityfreeapp.com/applicantSignUp.php', {
         method: 'POST', // Use POST method to send data securely to the server
         headers: {
           'Content-Type': 'application/json'

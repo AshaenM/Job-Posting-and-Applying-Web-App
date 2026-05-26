@@ -105,7 +105,7 @@ const submitForm = () => {
         postedDate: new Date().toISOString().split('T')[0]
     }
 
-    fetch('http://ashaenmanuel.infinityfreeapp.com/postJob.php', {
+    fetch('https://ashaenmanuel.infinityfreeapp.com/postJob.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

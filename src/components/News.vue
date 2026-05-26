@@ -77,7 +77,7 @@ export default {
 
         onMounted(async () => {
             try {
-                const res = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=news');
+                const res = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=news');
                 newsItems.value = await res.json();
             } catch (error) {
                 console.error("Failed to load news:", error);

@@ -112,9 +112,9 @@ export default {
     async fetchData() {
       try {
         const [appsRes, jobsRes, recsRes] = await Promise.all([
-          fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=applications'),
-          fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
-          fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters')
+          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applications'),
+          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
+          fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters')
         ]);
 
         this.applications = await appsRes.json();
@@ -126,7 +126,7 @@ export default {
     },
     async updateStatus(applicationId, newStatus) {
       try {
-        const res = await fetch(`http://ashaenmanuel.infinityfreeapp.com/update_application_status.php?id=${applicationId}&status=${newStatus}`);
+        const res = await fetch(`https://ashaenmanuel.infinityfreeapp.com/update_application_status.php?id=${applicationId}&status=${newStatus}`);
         if (!res.ok) throw new Error('Failed to update status');
 
         const result = await res.json();
@@ -144,7 +144,7 @@ export default {
       if (!confirm('Are you sure you want to delete this application?')) return;
 
       try {
-        const res = await fetch(`http://ashaenmanuel.infinityfreeapp.com/delete_application.php?id=${applicationId}`);
+        const res = await fetch(`https://ashaenmanuel.infinityfreeapp.com/delete_application.php?id=${applicationId}`);
         if (!res.ok) throw new Error('Failed to delete');
 
         const result = await res.json();

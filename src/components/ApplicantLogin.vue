@@ -80,7 +80,7 @@ export default {
             }
 
             try {
-                const response = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=applicants');
+                const response = await fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=applicants');
                 if (!response.ok) {
                     throw new Error('Failed to load applicants data.');
                 }

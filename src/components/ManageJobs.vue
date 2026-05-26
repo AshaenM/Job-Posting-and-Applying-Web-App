@@ -107,8 +107,8 @@ export default {
         async fetchJobs() {
             try {
                 const [jobsRes, recsRes] = await Promise.all([
-                    fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
-                    fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters'),
+                    fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
+                    fetch('https://ashaenmanuel.infinityfreeapp.com/read.php?file=recruiters'),
                 ]);
 
                 this.jobs = await jobsRes.json();
@@ -120,7 +120,7 @@ export default {
         deleteJob(id) {
             if (!confirm('Are you sure you want to delete this job?')) return;
 
-            fetch(`http://ashaenmanuel.infinityfreeapp.com/delete_job.php?id=${id}`)
+            fetch(`https://ashaenmanuel.infinityfreeapp.com/delete_job.php?id=${id}`)
                 .then(res => {
                     if (!res.ok) throw new Error('Failed to delete');
                     return res.json();
@@ -140,7 +140,7 @@ export default {
             this.editingJob = { ...job };
         },
         saveEdit() {
-            fetch('http://ashaenmanuel.infinityfreeapp.com/edit_job.php', {
+            fetch('https://ashaenmanuel.infinityfreeapp.com/edit_job.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.editingJob),
