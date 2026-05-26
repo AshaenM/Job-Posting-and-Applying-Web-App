@@ -75,6 +75,7 @@ export default {
           email: this.email,
           resume: this.resume,
           status: 'pending',
+          date: new Date().toISOString().split('T')[0],
         };
 
         const updated = [...applications, newApplication];

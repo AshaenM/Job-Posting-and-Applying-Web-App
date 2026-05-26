@@ -6,12 +6,7 @@ const BRANCH = 'main';
 const BASE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
 
 export async function readData(file) {
-  const response = await fetch(`${BASE_URL}/${file}.json`, {
-    headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
-      Accept: 'application/vnd.github.v3+json'
-    }
-  });
+  const response = await fetch(`${BASE_URL}/${file}.json`);
   const data = await response.json();
   const content = JSON.parse(atob(data.content));
   return { content, sha: data.sha };
