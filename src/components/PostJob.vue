@@ -105,7 +105,7 @@ const submitForm = () => {
         postedDate: new Date().toISOString().split('T')[0]
     }
 
-    fetch('https://mercury.swin.edu.au/cos30043/s104313773/A3/postJob.php', {
+    fetch('http://ashaenmanuel.infinityfreeapp.com/postJob.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

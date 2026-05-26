@@ -29,7 +29,7 @@
     },
     async created() {
       try {
-        const res = await fetch('./read.php?file=jobs');
+        const res = await fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs');
         if (!res.ok) throw new Error('Failed to load jobs data');
         this.jobsData = await res.json();
       } catch (err) {

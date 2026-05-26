@@ -57,8 +57,8 @@ export default {
         try {
             // Fetch shortlisted jobs and all jobs simultaneously
             const [shortlistRes, jobsRes] = await Promise.all([
-                fetch('./read.php?file=shortlists'),
-                fetch('./read.php?file=jobs'),
+                fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=shortlists'),
+                fetch('http://ashaenmanuel.infinityfreeapp.com/read.php?file=jobs'),
             ]);
 
             // Check if both requests were successful

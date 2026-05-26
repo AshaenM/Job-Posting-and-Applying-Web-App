@@ -143,7 +143,7 @@ export default {
         password: this.password,
       };
 
-      fetch('https://mercury.swin.edu.au/cos30043/s104313773/A3/applicantSignUp.php', {
+      fetch('http://ashaenmanuel.infinityfreeapp.com/applicantSignUp.php', {
         method: 'POST', // Use POST method to send data securely to the server
         headers: {
           'Content-Type': 'application/json'
