@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-
+header("Access-Control-Allow-Origin: *");
 $applicationId = isset($_GET['id']) ? $_GET['id'] : null;
 
 if (!$applicationId) {

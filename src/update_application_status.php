@@ -1,4 +1,5 @@
 <?php
+header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/json');
 
 $applicationsFile = 'data/applications.json';
