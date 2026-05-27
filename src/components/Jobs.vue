@@ -127,7 +127,7 @@ export default {
         }
         const newEntry = { job_id: jobId, applicant_id: applicantId };
         const updated = [...shortlists, newEntry];
-        await writeData('shortlists', updated, sha);
+        await writeData('shortlists', updated);
         alert('Job saved to shortlist!');
       } catch (err) {
         console.error(err);

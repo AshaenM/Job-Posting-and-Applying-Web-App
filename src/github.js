@@ -12,7 +12,8 @@ export async function readData(file) {
   return { content, sha: data.sha };
 }
 
-export async function writeData(file, content, sha) {
+export async function writeData(file, content) {
+  const { sha } = await readData(file);
   const response = await fetch(`${BASE_URL}/${file}.json`, {
     method: 'PUT',
     headers: {

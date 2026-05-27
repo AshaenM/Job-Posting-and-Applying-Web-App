@@ -152,7 +152,7 @@ export default {
         };
 
         const updated = [...applicants, newApplicant];
-        await writeData('applicants', updated, sha);
+        await writeData('applicants', updated);
 
         this.userStore.setRole("applicant");
         this.userStore.setLoggedIn(true);

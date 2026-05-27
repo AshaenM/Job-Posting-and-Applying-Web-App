@@ -118,7 +118,7 @@ export default {
             try {
                 const { content: jobs, sha } = await readData('jobs');
                 const updated = jobs.filter(job => job.id !== id);
-                await writeData('jobs', updated, sha);
+                await writeData('jobs', updated);
                 this.jobs = this.jobs.filter(job => job.id !== id);
                 alert('Job successfully deleted.');
             } catch (err) {
@@ -133,7 +133,7 @@ export default {
             try {
                 const { content: jobs, sha } = await readData('jobs');
                 const updated = jobs.map(j => j.id === this.editingJob.id ? { ...this.editingJob } : j);
-                await writeData('jobs', updated, sha);
+                await writeData('jobs', updated);
                 const index = this.jobs.findIndex(j => j.id === this.editingJob.id);
                 if (index !== -1) this.jobs[index] = { ...this.editingJob };
                 this.editingJob = null;

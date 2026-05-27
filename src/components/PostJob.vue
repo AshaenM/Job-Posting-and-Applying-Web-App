@@ -109,7 +109,7 @@ const submitForm = async () => {
     try {
         const { content: jobs, sha } = await readData('jobs')
         const updated = [...jobs, jobData]
-        await writeData('jobs', updated, sha)
+        await writeData('jobs', updated)
 
         alert('Job posted successfully!')
         router.push('/manage-jobs')

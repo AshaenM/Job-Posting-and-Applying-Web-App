@@ -79,7 +79,7 @@ export default {
         };
 
         const updated = [...applications, newApplication];
-        await writeData('applications', updated, sha);
+        await writeData('applications', updated);
 
         alert('Application submitted successfully!');
         this.$router.push('/applications');

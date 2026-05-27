@@ -129,7 +129,7 @@ export default {
         const updated = applications.map(a =>
           a.id === applicationId ? { ...a, status: newStatus } : a
         );
-        await writeData('applications', updated, sha);
+        await writeData('applications', updated);
         const app = this.applications.find(a => a.id === applicationId);
         if (app) app.status = newStatus;
         alert('Status updated successfully.');
@@ -143,7 +143,7 @@ export default {
       try {
         const { content: applications, sha } = await readData('applications');
         const updated = applications.filter(a => a.id !== applicationId);
-        await writeData('applications', updated, sha);
+        await writeData('applications', updated);
         this.applications = this.applications.filter(a => a.id !== applicationId);
         alert('Application deleted successfully.');
       } catch (error) {
