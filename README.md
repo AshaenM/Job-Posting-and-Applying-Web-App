@@ -41,6 +41,10 @@ TalentHaven streamlines the hiring process by providing recruiters and applicant
 
 ---
 
+## Drawbacks
+
+- I used GitHub as a lightweight data store to keep the architecture dependency-free. The tradeoff is latency on reads and writes. In production, I'd replace this with a proper backend like Supabase or Firebase which would bring response times under 100ms.
+
 ## 🛠️ Technical Stack
 
 ### Frontend
