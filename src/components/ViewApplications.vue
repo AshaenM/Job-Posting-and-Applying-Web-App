@@ -125,13 +125,15 @@ export default {
     },
     async updateStatus(applicationId, newStatus) {
       try {
-        const { content: applications, sha } = await readData('applications');
-        const updated = applications.map(a =>
-          a.id === applicationId ? { ...a, status: newStatus } : a
-        );
+        const { content: applications } = await readData('applications');
+        console.log('applications:', applications);
+        console.log('looking for id:', applicationId);
+        const updated = applications.map(a => {
+          console.log('comparing', a.id, 'with', applicationId);
+          return a.id === applicationId ? { ...a, status: newStatus } : a;
+        });
+        console.log('updated:', updated);
         await writeData('applications', updated);
-        const app = this.applications.find(a => a.id === applicationId);
-        if (app) app.status = newStatus;
         alert('Status updated successfully.');
       } catch (error) {
         console.error(error);
