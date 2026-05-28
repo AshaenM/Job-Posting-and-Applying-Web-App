@@ -50,11 +50,9 @@
             <p class="card-text"><strong>Resume Link:</strong> {{ application.resume }}</p>
             <p class="card-text"><strong>Email:</strong> {{ application.email }}</p>
             <p class="card-text"><strong>Status:</strong> {{ application.status }}</p>
-            <button class="btn btn-success me-2"
-              @click="updateStatus(application.applicationId, 'Accepted')">Accept</button>
-            <button class="btn btn-danger me-2"
-              @click="updateStatus(application.applicationId, 'Rejected')">Reject</button>
-            <button class="btn btn-outline-danger" @click="deleteApplication(application.applicationId)">Delete</button>
+            <button class="btn btn-success me-2" @click="updateStatus(application.id, 'Accepted')">Accept</button>
+            <button class="btn btn-danger me-2" @click="updateStatus(application.id, 'Rejected')">Reject</button>
+            <button class="btn btn-outline-danger" @click="deleteApplication(application.id)">Delete</button>
           </div>
         </div>
       </div>
